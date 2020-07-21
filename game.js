@@ -1,0 +1,3 @@
+
+
+var gameStatus = 1;

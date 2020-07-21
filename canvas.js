@@ -1,4 +1,4 @@
-import { Tank , Bullet} from "./tank.js";
+import {Tank , Bullet} from "../objects/tank.js";
 
 function setCanvasInDom(){
     document.body.insertAdjacentHTML("afterbegin",`<canvas id="gameCanvas"> </canvas>`);
@@ -66,3 +66,6 @@ function Animation(){
 
 Animation();
 
+window.onresize = _ =>{
+    playerTank.updatingReslution(); 
+}

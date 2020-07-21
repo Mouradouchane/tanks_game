@@ -6,9 +6,9 @@
 
 #gameCanvas{
     position: fixed;
-    width: 800px;
-    height: 600px;
+    width: 100%;
+    height: calc(100% - 40px);
     border: 1px solid black;
-    left: 10px;
-    top : 10px;
+    left: 0px;
+    top: 40px;
 }
