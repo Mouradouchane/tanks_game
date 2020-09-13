@@ -1,4 +1,5 @@
 import {Tank , Bullet} from "../objects/tank.js";
+import {grassGround} from "./objects/textuerGround.js";
 
 function setCanvasInDom(){
     document.body.insertAdjacentHTML("afterbegin",`<canvas id="gameCanvas"> </canvas>`);
@@ -9,8 +10,8 @@ setCanvasInDom();
 
 // target canvas in constant
 export const canvas = document.querySelector("#gameCanvas");
-    canvas.width = 800;
-    canvas.height = 600;
+             canvas.width = 800;
+             canvas.height = 600;
 
 // get context 2d for canvas usage "ctx"
 export const ctx = canvas.getContext("2d");
@@ -49,12 +50,21 @@ canvas.addEventListener("click" , function shotBullet() {
 });
 
 function Animation(){
-    
     // start animation
     ctx.clearRect(0,0,800,600);
+
     ctx.fillRect(0,0,800,600);
-    
+    for(let Y = 1 , y = 0; Y <= 12 ; y += grassGround.size , Y += 1){
+        for(let block = 1 , x = 0; block <= 16 ; block += 1 , x+= grassGround.size){
+            ctx.drawImage(grassGround.img, x , y , grassGround.size, grassGround.size);
+        }
+    }
+        
     ctx.drawImage(playerTank.TankCase , playerTank.x , playerTank.y , playerTank.width , playerTank.height);
+
+    // ctx.lineWidth = 4;
+    // ctx.strokeStyle = "red";
+    // ctx.strokeRect(playerTank.x,playerTank.y, playerTank.width , playerTank.height);
 
     for(let i = 0 ; i < bullets.length ; i += 1){
         bullets[i].movingBulletWithDirection();
@@ -66,6 +76,6 @@ function Animation(){
 
 Animation();
 
-window.onresize = _ =>{
-    playerTank.updatingReslution(); 
-}
+// window.onresize = _ =>{
+//     playerTank.updatingReslution(); 
+// }

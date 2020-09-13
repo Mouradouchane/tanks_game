@@ -14,10 +14,10 @@ export class Tank{
         this.width  = (window.innerWidth/this.FixedSize);
         this.height = (window.innerWidth/this.FixedSize);
 
-        this.updatingReslution = () => {
+       /* this.updatingReslution = () => {
             this.width  = (window.innerWidth/this.FixedSize);
-            this.height = (window.innerWidth/this.FixedSize);
-        };
+            this.height = (window.innerHeight/this.FixedSize);
+        };*/
 
         this.bullet = {
             img : "",
@@ -28,7 +28,7 @@ export class Tank{
         };
 
         this.MovingTank = (e = event) => {
-
+            // glitch movment here
             switch (e.keyCode){
 
                 // if "z" pressed
@@ -40,7 +40,9 @@ export class Tank{
                         this.x -= 0;
 
                         this.bullet.y = this.y;
+
                     }
+                    return 0;
                         
                 } 
                 break;
@@ -56,6 +58,7 @@ export class Tank{
 
                         this.bullet.y = this.y;
                     }
+                    return 0;
 
                 }
                 break;
@@ -71,6 +74,7 @@ export class Tank{
 
                         this.bullet.x = this.x;
                     }
+                    return 0;
                 }
                 break;
 
@@ -84,7 +88,9 @@ export class Tank{
                         this.x += this.speed;
 
                         this.bullet.x = this.x;
+
                     }
+                    return 0;
                 }
                 break;
 
@@ -99,7 +105,7 @@ export class Bullet{
     constructor(x,y,direction){
         this.x = x;
         this.y = y;
-        this.speed = 4;
+        this.speed = 8;
         this.direction = direction;
         this.size = 4;
         this.movingBulletWithDirection =  () => {
