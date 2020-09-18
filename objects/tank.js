@@ -1,31 +1,36 @@
 
-import {canvas , ctx} from "../canvas.js";
+import {canvas} from "../canvas.js";
+
+// top          // down     // left         // right
+const Defualt_TankImgSource = [new Image() , new Image() , new Image() , new Image()] ;
+      Defualt_TankImgSource[0].src = "../Graphics/defultTankImgTop.png";
+      Defualt_TankImgSource[1].src = "../Graphics/defultTankImgDown.png";
+      Defualt_TankImgSource[2].src = "../Graphics/defultTankImgLeft.png";
+      Defualt_TankImgSource[3].src = "../Graphics/defultTankImgRight.png";
+                
+export {Defualt_TankImgSource};
 
 export class Tank{
-    constructor(x , y , speed , imgs = []){
+    constructor(x , y , speed = 4, imgs = []){
         // inhert bullet form fire.js
         this.speed = speed;
         this.x = x;
         this.y = y;
+        // array of tank images
         this.SourceImges = imgs;
         this.FixedSize = 28;
         this.TankCase = this.SourceImges[0];
         this.TankCaseString = "top";
         this.width  = (window.innerWidth/this.FixedSize);
         this.height = (window.innerWidth/this.FixedSize);
-
-       /* this.updatingReslution = () => {
+        this.isTankFire = false;
+        this.Bullets = [];
+        /* this.updatingReslution = () => {
             this.width  = (window.innerWidth/this.FixedSize);
             this.height = (window.innerHeight/this.FixedSize);
         };*/
 
-        this.bullet = {
-            img : "",
-            x : this.x + this.width/2,
-            y : this.y + this.height/2,
-            size : 4,
-            speed : 6
-        };
+        this.LastBullet = new Bullet(this.x + this.width/2, this.y + this.height/2, this.TankCaseString);
 
         this.MovingTank = (e = event) => {
             // glitch movment here
@@ -39,7 +44,7 @@ export class Tank{
                         this.y -= this.speed;
                         this.x -= 0;
 
-                        this.bullet.y = this.y;
+                        this.LastBullet.y = this.y;
 
                     }
                     return 0;
@@ -56,7 +61,7 @@ export class Tank{
                         this.y += this.speed;
                         this.x += 0;
 
-                        this.bullet.y = this.y;
+                        this.LastBullet.y = this.y;
                     }
                     return 0;
 
@@ -72,7 +77,7 @@ export class Tank{
                         this.y += 0;
                         this.x -= this.speed;
 
-                        this.bullet.x = this.x;
+                        this.LastBullet.x = this.x;
                     }
                     return 0;
                 }
@@ -87,7 +92,7 @@ export class Tank{
                         this.y += 0;
                         this.x += this.speed;
 
-                        this.bullet.x = this.x;
+                        this.LastBullet.x = this.x;
 
                     }
                     return 0;
@@ -100,6 +105,11 @@ export class Tank{
         
     }
 }
+
+let bullet = new Image();
+    bullet.src = "../Graphics/Bullet.png";
+
+export {bullet};
 
 export class Bullet{
     constructor(x,y,direction){
@@ -117,6 +127,27 @@ export class Bullet{
                 case "right" : this.x += this.speed; break;
                 
             }
+        };
+        this.isOutOfCanvas = () =>{
+            let BOOL = false;
+
+            // checking x
+            if(this.x < 0){
+                BOOL = true;
+            }
+            else if(this.x > canvas.width){
+                BOOL = true;
+            }
+
+            // checking y
+             if(this.y < 0){
+                BOOL = true;
+            }
+            else if(this.y > canvas.height){
+                BOOL = true;
+            }
+
+            return BOOL;
         };
     }
 }
