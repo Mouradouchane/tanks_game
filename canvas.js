@@ -1,8 +1,8 @@
-import {Tank , Bullet} from "../objects/tank.js";
-import {Defualt_TankImgSource} from "./objects/tank.js";
-import {grassGround} from "./objects/textuerGround.js";
-import {bullet} from "./objects/tank.js";
+import {Tank , Bullet , bullet , Defualt_TankImgSource} from "../objects/tank.js";
 
+import {grassGround} from "./objects/textuerGround.js";
+
+import {NewBuildBlockIMG , BuildBlock} from "./objects/blocks.js";
 
 // this function just for adding canvas in dom :)
 function setCanvasInDom(){
@@ -45,14 +45,23 @@ function drawGround(){
        
 }
 
+//defined new block for test
+const testblock = new BuildBlock();
+
 function Render(){
     // start animation
     ctx.clearRect(0,0,800,600);
 
+    // shadow sitting
+    ctx.shadowColor = "rgba(0,0,0,0.5)";
+    ctx.shadowBlur = 0.1;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 6;
+
     // drawing ground as first step after clearing canvas
     drawGround();
 
-    
+   
     // ctx.lineWidth = 4;
     // ctx.strokeStyle = "red";
     // ctx.strokeRect(playerTank.x,playerTank.y, playerTank.width , playerTank.height);
@@ -67,6 +76,9 @@ function Render(){
             ctx.drawImage(bullet ,  playerTank.Bullets[i].x ,  playerTank.Bullets[i].y ,  playerTank.Bullets[i].size ,  playerTank.Bullets[i].size);    
         }
     }
+
+    // rendering test block
+    testblock.render(250,250);
 
     // Rendering Player Tank
     ctx.drawImage(playerTank.TankCase , playerTank.x , playerTank.y , playerTank.width , playerTank.height);

@@ -18,11 +18,11 @@ export class Tank{
         this.y = y;
         // array of tank images
         this.SourceImges = imgs;
-        this.FixedSize = 28;
+        this.FixedSize = 40;
         this.TankCase = this.SourceImges[0];
         this.TankCaseString = "top";
-        this.width  = (window.innerWidth/this.FixedSize);
-        this.height = (window.innerWidth/this.FixedSize);
+        this.width  = this.FixedSize;
+        this.height = this.FixedSize;
         this.isTankFire = false;
         this.Bullets = [];
         /* this.updatingReslution = () => {
