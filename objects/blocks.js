@@ -6,16 +6,16 @@ const   NewBuildBlockIMG = new Image();
 export {NewBuildBlockIMG};
 
 export class BuildBlock{
-    constructor(blockImg = NewBuildBlockIMG , x = 200, y = 200){
-        this.size = 50;
+    constructor(x = 0, y = 0 , size = 50 , img = NewBuildBlockIMG){
+        this.size = size;
         this.x = x;
         this.y = y;
-        this.blockImg = blockImg;
+        this.img = img;
         this.height = this.size;
         this.width = this.size;
         this.render = () => {
             // draw block
-            ctx.drawImage(this.blockImg , this.x , this.y , this.width , this.height);
+            ctx.drawImage(this.img , this.x , this.y , this.width , this.height);
         }
     }
 }

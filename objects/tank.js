@@ -18,11 +18,11 @@ export class Tank{
         this.y = y;
         // array of tank images
         this.SourceImges = imgs;
-        this.FixedSize = 40;
+        this.size = 50;
         this.TankCase = this.SourceImges[0];
         this.TankCaseString = "top";
-        this.width  = this.FixedSize;
-        this.height = this.FixedSize;
+        this.width  = this.size;
+        this.height = this.size;
         this.isTankFire = false;
         this.Bullets = [];
         /* this.updatingReslution = () => {
@@ -31,77 +31,95 @@ export class Tank{
         };*/
 
         this.LastBullet = new Bullet(this.x + this.width/2, this.y + this.height/2, this.TankCaseString);
+        
+        this.targetObject = {};
+        this.collisionDetection = false;
 
         this.MovingTank = (e = event) => {
             // glitch movment here
-            switch (e.keyCode){
+            // glitch collision here
+            switch (e.key){
 
                 // if "z" pressed
-                case 122 : {
+                case "z" : {
                     this.TankCase = this.SourceImges[0];
                     this.TankCaseString = "top";
-                    if(this.y >= 0){
-                        this.y -= this.speed;
-                        this.x -= 0;
-
-                        this.LastBullet.y = this.y;
-
+                   
+                    if(!(this.x + this.size < this.targetObject.x) && !(this.x > this.targetObject.x + this.targetObject.size) && 
+                    (this.y < this.targetObject.y + this.targetObject.size) && (this.y + this.size > this.targetObject.y + this.targetObject.size)){
+                        this.y -= 0;
                     }
-                    return 0;
-                        
+                    else this.y -= this.speed;
+                    
+                    this.LastBullet.y = this.y;
+                    return 0;     
                 } 
                 break;
                 
                 // if "s" pressed
-                case 115 : {
+                case "s" : {
                     this.TankCase = this.SourceImges[1];
                     this.TankCaseString = "down";
 
-                    if(this.y <= (canvas.height - this.height) ){
-                        this.y += this.speed;
-                        this.x += 0;
-
-                        this.LastBullet.y = this.y;
+                    if(!(this.x + this.size < this.targetObject.x) && !(this.x > this.targetObject.x + this.targetObject.size) && 
+                    (this.y + this.size > this.targetObject.y) && (this.y + this.size < this.targetObject.y + this.targetObject.size)){
+                        this.y += 0;
                     }
+                    else this.y += this.speed;
+
+                    this.LastBullet.y = this.y;
                     return 0;
 
                 }
                 break;
                 
                 // if "q" pressed
-                case 113 : {
+                case "q" : {
                     this.TankCase = this.SourceImges[2];
                     this.TankCaseString = "left";
 
-                    if(this.x >= 0 ){
-                        this.y += 0;
-                        this.x -= this.speed;
-
-                        this.LastBullet.x = this.x;
+                    if(!(this.y + this.size < this.targetObject.y) && !(this.y > this.targetObject.y + this.targetObject.size) && 
+                    (this.x < this.targetObject.x + this.targetObject.size) && (this.x > this.targetObject.x)){
+                    this.x -= 0;
                     }
+                    else this.x -= this.speed;
+
+                    this.LastBullet.x = this.x;
                     return 0;
                 }
                 break;
 
                 // if "d" pressed
-                case 100 : {
+                case "d" : {
                     this.TankCase = this.SourceImges[3];
                     this.TankCaseString = "right";
 
-                    if(this.x <= (canvas.width - this.width) ){
-                        this.y += 0;
-                        this.x += this.speed;
-
-                        this.LastBullet.x = this.x;
-
+                    if(!(this.y + this.size < this.targetObject.y) && !(this.y > this.targetObject.y + this.targetObject.size) && 
+                    (this.x + this.size > this.targetObject.x) && (this.x < this.targetObject.x + this.targetObject.size)){
+                        this.x += 0;
                     }
+                    else this.x += this.speed;
+
+                    this.LastBullet.x = this.x;
                     return 0;
                 }
                 break;
 
             }
-        }
+        };
 
+        this.collision = (cobj = {}) => {
+            // if( this.x > cobj.x + cobj.size && this.x + this.size < cobj.x &&
+            //     this.y > cobj.y + cobj.size && this.y + this.size < cobj.y ){
+            if( this.x + this.size > cobj.x && this.x < cobj.x + cobj.size &&
+                this.y + this.size > cobj.y && this.y < cobj.y + cobj.size ){
+    
+                this.collisionDetection = true;
+                this.targetObject = cobj;
+                
+                return true;
+            }
+        };
         
     }
 }
