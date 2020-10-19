@@ -7,9 +7,9 @@ export {NewBuildBlockIMG};
 
 export class BuildBlock{
     constructor(x = 0, y = 0 , size = 50 , img = NewBuildBlockIMG){
-        this.size = size;
         this.x = x;
         this.y = y;
+        this.size = size;
         this.img = img;
         this.height = this.size;
         this.width = this.size;
