@@ -69,22 +69,23 @@ function Render(){
     drawGround();
    
     // drowing border in tank 
-    ctx.lineWidth = 1;
+    /*ctx.lineWidth = 1;
     ctx.strokeStyle = "red";
-    ctx.strokeRect(playerTank.x,playerTank.y, playerTank.width , playerTank.height);
+    ctx.strokeRect(playerTank.x,playerTank.y, playerTank.width , playerTank.height);*/
     
-   
     // rendering bullets
-    for(let i = 0 ; i < playerTank.Bullets.length ; i += 1){
+    for(let bullet of playerTank.Bullets){
         // if bullet out of canvas or terran just skip render
-        if(playerTank.Bullets[i].isOutOfCanvas()){
-            playerTank.Bullets[i] = null;
+        if(bullet.isOutOfCanvas() || !bullet.isCollision){
+            debugger;
             continue;
-        } 
-        else{
-            // else checking collision & render bullet
-            playerTank.Bullets[i].movingBulletWithDirection();
-            ctx.drawImage(bullet ,  playerTank.Bullets[i].x ,  playerTank.Bullets[i].y ,  playerTank.Bullets[i].size ,  playerTank.Bullets[i].size);    
+        }
+        else{ 
+            for(let block of ArrayOfBlocks){
+                bullet.collision(block);
+            }
+            bullet.movingBulletWithDirection();
+            bullet.render();
         }
     }
 

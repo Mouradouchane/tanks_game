@@ -39,7 +39,7 @@ constructor(x , y , speed = 4, imgs = []){
     this.render = () => {
         ctx.drawImage(this.TankCase ,this.x , this.y , this.width , this.height);
     };
-    
+
     this.repositionTank = () =>{
         switch(this.collisionDetectionDir){
             case "top"  : this.y -= this.respositionValue , this.collisionDetection = false; break;
@@ -158,6 +158,12 @@ export class Bullet{
         this.speed = 8;
         this.direction = direction;
         this.size = 4;
+        this.isCollision = false;
+
+        this.render = () =>{
+            ctx.drawImage(bullet ,  this.x ,  this.y ,  this.size ,  this.size);    
+        };
+
         this.movingBulletWithDirection =  () => {
             switch(this.direction){
 
@@ -167,26 +173,27 @@ export class Bullet{
                 case "right" : this.x += this.speed; break;
                 
             }
+        };             // tobj = target object
+        this.collision = (tobj = {}) =>{
+
+            if( this.x + this.size > tobj.x && this.x < tobj.x + tobj.size &&
+                this.y + this.size > tobj.y && this.y < tobj.y + tobj.size){
+                    this.isCollision = true;
+            }
+            return this.isCollision;
         };
         this.isOutOfCanvas = () =>{
             let BOOL = false;
 
             // checking x
-            if(this.x < 0){
-                BOOL = true;
-            }
-            else if(this.x > canvas.width){
-                BOOL = true;
-            }
+            if(this.x < 0) BOOL = true;
+            else if(this.x > canvas.width)  BOOL = true;
 
             // checking y
-             if(this.y < 0){
-                BOOL = true;
-            }
-            else if(this.y > canvas.height){
-                BOOL = true;
-            }
+            if(this.y < 0) BOOL = true;
+            else if(this.y > canvas.height) BOOL = true;
 
+            this.isCollision = true;
             return BOOL;
         };
     }
