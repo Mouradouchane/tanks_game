@@ -1,5 +1,5 @@
 
-import {ctx} from "../canvas.js";
+import {ctx, canvas} from "../canvas.js";
 import {Bullet} from "../objects/bullets.js"
 
 // top          // down     // left         // right
@@ -102,6 +102,24 @@ constructor(x , y , speed = 4, imgs = []){
     };
 
     this.collision = (cobj = {}) => {
+        // collision on game border
+        if(this.x + 2 <= 0){
+            this.collisionDetectionDir = "right";
+            this.repositionTank();
+        }
+        else if(this.x + this.size >=  canvas.width){
+            this.collisionDetectionDir = "left";
+            this.repositionTank();
+        }
+        else if(this.y + 2 <= 0){
+            this.collisionDetectionDir = "down";
+            this.repositionTank();
+        }
+        else if(this.y + this.size >= canvas.height){
+            this.collisionDetectionDir = "top";
+            this.repositionTank();
+        }
+
         if( this.x + this.size + this.safeD > cobj.x && this.x - this.safeD < cobj.x + cobj.size &&
             this.y + this.size + this.safeD > cobj.y && this.y - this.safeD < cobj.y + cobj.size ){
             //debugger;
