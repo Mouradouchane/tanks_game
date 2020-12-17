@@ -1,5 +1,6 @@
 import {GAME} from "./game.js";
-import {Tank , Bullet , bullet , Defualt_TankImgSource} from "../objects/tank.js";
+import {Tank , Defualt_TankImgSource} from "../objects/tank.js";
+import {Bullet} from "./objects/bullets.js";
 import {grassGround} from "./objects/textuerGround.js";
 import {BuildBlock} from "./objects/blocks.js";
 
