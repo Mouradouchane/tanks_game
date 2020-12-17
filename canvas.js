@@ -63,7 +63,7 @@ function Render(){
     ctx.shadowColor = "rgba(0,0,0,0.5)";
     ctx.shadowBlur = 0.1;
     ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 6;
+    ctx.shadowOffsetY = 4;
 
     // drawing ground as first step after clearing canvas
     drawGround();
@@ -77,7 +77,7 @@ function Render(){
     for(let bullet of playerTank.Bullets){
         // if bullet out of canvas or terran just skip render
         if(bullet.isOutOfCanvas() || !bullet.isCollision){
-            debugger;
+            //debugger;
             continue;
         }
         else{ 

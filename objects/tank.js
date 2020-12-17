@@ -52,11 +52,15 @@ constructor(x , y , speed = 4, imgs = []){
 
     this.move = (e = event) => {
         if(this.collisionDetection){
+            // if tank glitch in block this for press r to teleport
+            if(e.key == "r") this.y = 80 , this.x = 210 , this.collisionDetection = false;
+
             this.repositionTank();
         }
         else {
             // glitch movment here
             switch (e.key){
+                case "r" :  this.y = 80 , this.x = 210 ;break;
                 case "z" : {
                     this.TankCase = this.SourceImges[0];
                     this.TankCaseString = "top";
@@ -109,13 +113,13 @@ constructor(x , y , speed = 4, imgs = []){
                 //if(this.x + this.size + this.safeD > cobj.x && this.x < cobj.x + cobj.size){ 
                 if(this.x < cobj.x && this.x + this.size  + this.safeD< (cobj.x + (cobj.size / 2)) ){
                     this.collisionDetectionDir = "left";
-                    console.log("left"); 
+                    //console.log("left"); 
                     return this.collisionDetection;
                 }
                 //if(this.x - this.safeD <= cobj.x + cobj.size ){
                 if(this.x + this.safeD > (cobj.x + (cobj.size/2))){
                     this.collisionDetectionDir = "right";
-                    console.log("right"); 
+                    //console.log("right"); 
                     return this.collisionDetection;
                 } 
             }
@@ -123,13 +127,13 @@ constructor(x , y , speed = 4, imgs = []){
                 //if( (this.y + this.size + this.safeD) > cobj.y && this.y + this.size + this.safeD < (cobj.y + (cobj.size/2))){
                 if(this.y < cobj.y && (this.y < cobj.y + cobj.size)){
                     this.collisionDetectionDir = "top";
-                    console.log("top");
+                    //console.log("top");
                     return this.collisionDetection;
                 }                     // + 1 for fix 
                 //if( this.y - (this.safeD + 1) < cobj.y + cobj.size + this.safeD){
                 if(this.y + this.size + this.safeD > cobj.y + (cobj.size)){ 
                     this.collisionDetectionDir = "down";
-                    console.log("down");
+                    //console.log("down");
                     return this.collisionDetection;
                 }
             
