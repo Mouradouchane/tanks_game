@@ -105,6 +105,8 @@ function Render(){
 
     // Rendering Player Tank
     playerTank.render();
+    // bad engine sound
+    playerTank.engine.soundLoop();
 
     // turn of shadow before drawing fps & frame
     ctx.shadowColor = "transparent";

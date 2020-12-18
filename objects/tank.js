@@ -27,7 +27,7 @@ constructor(x , y , speed = 4, imgs = []){
     this.isTankFire = false;
     this.Bullets = [];
     this.LastBullet = new Bullet(this.x + this.width/2, this.y + this.height/2, this.TankCaseString);
-    
+
     // safe Doistance when we check collision detection
     this.safeD = 1;
     // value used by ropsitionTank function 
@@ -118,7 +118,7 @@ constructor(x , y , speed = 4, imgs = []){
             this.collisionDetectionDir = "top";
             this.repositionTank();
         }
-    }
+    };
     // this function for general collision 
     // required object for collision-detected  
     this.collision = (cobj = {}) => {
@@ -168,5 +168,17 @@ constructor(x , y , speed = 4, imgs = []){
     };
 
     };
+
+    // engine object for sound loop
+    this.engine = {
+        isEngineWork : true,
+        sound : new Audio("../audio/tank/TankengineHeavyLoop.wav"),
+        soundLoop : () => {
+            //this.engine.sound.contentEditable = true;
+            this.engine.sound.volume = 0.1;
+            if(this.engine.isEngineWork) this.engine.sound.play();
+        }
+    }
+
 }
 }
