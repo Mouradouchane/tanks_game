@@ -1,8 +1,8 @@
 import {GAME} from "./game.js";
 import {Tank , Defualt_TankImgSource} from "../objects/tank.js";
-import {Bullet} from "./objects/bullets.js";
 import {grassGround} from "./objects/textuerGround.js";
 import {BuildBlock} from "./objects/blocks.js";
+import {Bullet , BulletHitWallEffect} from "./objects/bullets.js";
 
 // game object just for game sitting & tell us about game cases 
 const game = new GAME();
@@ -78,19 +78,21 @@ function Render(){
     ctx.strokeRect(playerTank.x,playerTank.y, playerTank.width , playerTank.height);*/
     
     // rendering bullets
-    for(let Currentbullet of playerTank.Bullets){
-        Currentbullet.collision(ArrayOfBlocks);
-        Currentbullet.TerrainBordersCollision();
-
-        // if bullet out of canvas or terran just skip render
-        if(Currentbullet.isCollision){
-            //debugger;
-            playerTank.Bullets[Currentbullet] = null;
-            continue;
-        }
-        else{
-            Currentbullet.movingBulletWithDirection();
-            Currentbullet.render();
+    for(let i = 0 ; i < playerTank.Bullets.length ; i += 1){
+        if(playerTank.Bullets[i] != null){
+            playerTank.Bullets[i].collision(ArrayOfBlocks);
+            playerTank.Bullets[i].TerrainBordersCollision();
+            
+            // if bullet out of terran or collided some block just skip render & play sound of hit
+            if(playerTank.Bullets[i].isCollision){
+                BulletHitWallEffect.play();
+                playerTank.Bullets[i] = null;
+                continue;
+            }
+            else{
+                playerTank.Bullets[i].movingBulletWithDirection();
+                playerTank.Bullets[i].render();
+            }
         }
     }
 

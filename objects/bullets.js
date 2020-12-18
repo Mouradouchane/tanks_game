@@ -2,10 +2,11 @@ import {canvas , ctx} from "../canvas.js"
 
 let bullet = new Image();
 bullet.src = "../Graphics/Bullet.png";
-
 export {bullet};
 
-export const defultBulletShotSoundEffect = new Audio("../audio/bullet/BulletShotEffect2.wav");
+// this sounds used here  in Bullet constructor
+const defultBulletShotSoundEffect = new Audio("../audio/bullet/BulletShotEffect2.wav");
+export const BulletHitWallEffect = new Audio("../audio/bullet/BulletHitWallEffect.wav");
 
 export class Bullet{
 constructor(x,y,direction){
@@ -45,10 +46,10 @@ constructor(x,y,direction){
     this.TerrainBordersCollision = () =>{
 
         // checking x
-        if(this.x < 0 || this.x > canvas.width ) this.isCollision = true;
+        if(this.x < 0 || this.x > canvas.width ) this.isCollision = true //, BulletHitWallEffect.play();
 
         // checking y
-        if(this.y < 0 || this.y > canvas.height) this.isCollision = true;
+        if(this.y < 0 || this.y > canvas.height) this.isCollision = true //, BulletHitWallEffect.play();
 
     };
 }
