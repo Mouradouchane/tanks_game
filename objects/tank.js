@@ -100,9 +100,8 @@ constructor(x , y , speed = 4, imgs = []){
             }
         }
     };
-
-    this.collision = (cobj = {}) => {
-        // collision on game border
+    // this function for prevent player in terrain borders
+    this.TerrainBordersCollision = () =>{
         if(this.x + 2 <= 0){
             this.collisionDetectionDir = "right";
             this.repositionTank();
@@ -119,7 +118,11 @@ constructor(x , y , speed = 4, imgs = []){
             this.collisionDetectionDir = "top";
             this.repositionTank();
         }
-
+    }
+    // this function for general collision 
+    // required object for collision-detected  
+    this.collision = (cobj = {}) => {
+        this.TerrainBordersCollision();
         if( this.x + this.size + this.safeD > cobj.x && this.x - this.safeD < cobj.x + cobj.size &&
             this.y + this.size + this.safeD > cobj.y && this.y - this.safeD < cobj.y + cobj.size ){
             //debugger;
@@ -154,8 +157,7 @@ constructor(x , y , speed = 4, imgs = []){
                     this.collisionDetectionDir = "down";
                     //console.log("down");
                     return this.collisionDetection;
-                }
-            
+                }  
         }
         else {
             /* this.collisionDetection = false;

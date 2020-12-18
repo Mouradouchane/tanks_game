@@ -75,18 +75,19 @@ function Render(){
     ctx.strokeRect(playerTank.x,playerTank.y, playerTank.width , playerTank.height);*/
     
     // rendering bullets
-    for(let bullet of playerTank.Bullets){
+    for(let Currentbullet of playerTank.Bullets){
+        Currentbullet.collision(ArrayOfBlocks);
+        Currentbullet.TerrainBordersCollision();
+
         // if bullet out of canvas or terran just skip render
-        if(bullet.isOutOfCanvas() || !bullet.isCollision){
+        if(Currentbullet.isCollision){
             //debugger;
+            playerTank.Bullets[Currentbullet] = null;
             continue;
         }
-        else{ 
-            for(let block of ArrayOfBlocks){
-                bullet.collision(block);
-            }
-            bullet.movingBulletWithDirection();
-            bullet.render();
+        else{
+            Currentbullet.movingBulletWithDirection();
+            Currentbullet.render();
         }
     }
 

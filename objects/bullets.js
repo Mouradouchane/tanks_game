@@ -27,28 +27,25 @@ constructor(x,y,direction){
             case "right" : this.x += this.speed; break;
             
         }
-    };             // tobj = target object
-    this.collision = (tobj = {}) =>{
-
-        if( this.x + this.size > tobj.x && this.x < tobj.x + tobj.size &&
-            this.y + this.size > tobj.y && this.y < tobj.y + tobj.size){
-                this.isCollision = true;
+    };             // ArrayOfObjcts = all terrian objects
+    this.collision = (ArrayOfBlocks = {}) =>{
+        for(let block of ArrayOfBlocks){
+            if( this.x + this.size > block.x && this.x < block.x + block.size &&
+                this.y + this.size > block.y && this.y < block.y + block.size){
+                    this.isCollision = true;
+                    break;
+            }
         }
-        return this.isCollision;
     };
-    this.isOutOfCanvas = () =>{
-        let BOOL = false;
+    // "like class tank" - this function for prevent player in terrain borders
+    this.TerrainBordersCollision = () =>{
 
         // checking x
-        if(this.x < 0) BOOL = true;
-        else if(this.x > canvas.width)  BOOL = true;
+        if(this.x < 0 || this.x > canvas.width ) this.isCollision = true;
 
         // checking y
-        if(this.y < 0) BOOL = true;
-        else if(this.y > canvas.height) BOOL = true;
+        if(this.y < 0 || this.y > canvas.height) this.isCollision = true;
 
-        this.isCollision = true;
-        return BOOL;
     };
 }
 }
