@@ -5,13 +5,17 @@ bullet.src = "../Graphics/Bullet.png";
 
 export {bullet};
 
+export const defultBulletShotSoundEffect = new Audio("../audio/bullet/BulletShotEffect2.wav");
+
 export class Bullet{
 constructor(x,y,direction){
+    // play shot sound with every new defult bullet pushed in terrian
+    defultBulletShotSoundEffect.play();
     this.x = x;
     this.y = y;
-    this.speed = 8;
+    this.speed = 12;
     this.direction = direction;
-    this.size = 4;
+    this.size = 5;
     this.isCollision = false;
 
     this.render = () =>{
