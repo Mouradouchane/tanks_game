@@ -5,8 +5,8 @@ bullet.src = "../Graphics/Bullet.png";
 export {bullet};
 
 // this sounds used here  in Bullet constructor
-const defultBulletShotSoundEffect = new Audio("../audio/bullet/BulletShotEffect2.wav");
-export const BulletHitWallEffect = new Audio("../audio/bullet/BulletHitWallEffect.wav");
+const defultBulletShotSoundEffect = new Audio("../audio/bullet/BulletShotEffect2.mp3");
+export const BulletHitWallEffect = new Audio("../audio/bullet/BulletHitWallEffect.mp3");
 
 export class Bullet{
 constructor(x,y,direction){

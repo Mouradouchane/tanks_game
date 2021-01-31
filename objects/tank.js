@@ -26,11 +26,17 @@ constructor(x , y , speed = 4, imgs = []){
     this.height = this.size;
     this.isTankFire = false;
     this.Bullets = [];
+    // shot delay by milliseconds
+    this.tankDelay = 1000;
+    this.avalibleShots = 1;
+    this.maxAvalibleShots = 1;
+    this.shotAccess = [true,false];
     this.LastBullet = new Bullet(this.x + this.width/2, this.y + this.height/2, this.TankCaseString);
+    this.collisionSound = new Audio("../audio/tank/collisionSound.mp3");
 
-    // safe Doistance when we check collision detection
+    // safe Doistance when we check collision detection 
     this.safeD = 1;
-    // value used by ropsitionTank function 
+    // value used by ropsitionTank function  
     this.respositionValue = 2;
 
     this.collisionDetection = false;
@@ -41,7 +47,11 @@ constructor(x , y , speed = 4, imgs = []){
         ctx.drawImage(this.TankCase ,this.x , this.y , this.width , this.height);
     };
 
+    // reposition Tank when collision detection
     this.repositionTank = () =>{
+        // let call collision sound effect afeter reposition " HERE " 
+        this.collisionSound.play();
+
         switch(this.collisionDetectionDir){
             case "top"  : this.y -= this.respositionValue , this.collisionDetection = false; break;
             case "down" : this.y += this.respositionValue , this.collisionDetection = false; break;
@@ -169,16 +179,39 @@ constructor(x , y , speed = 4, imgs = []){
 
     };
 
+    this.shot = () => {
+        if(this.shotAccess[0] && this.avalibleShots != 0){
+        
+        --this.avalibleShots;
+        switch(this.TankCaseString){
+            case "left":
+            case "right":
+                this.Bullets.push(new Bullet((this.x + this.height/2 + 6) , (this.y + this.width/2 + 3), this.TankCaseString));
+                this.Bullets.push(new Bullet((this.x + this.height/2 + 6) , (this.y + this.width/2 - 8), this.TankCaseString));
+            break;
+            
+            case "top":
+            case "down":
+                this.Bullets.push(new Bullet((this.x + this.height/2 + 4) , (this.y + this.width/2 + 3), this.TankCaseString));
+                this.Bullets.push(new Bullet((this.x + this.height/2 - 9) , (this.y + this.width/2 + 3), this.TankCaseString));
+            break;
+        }
+
+        }
+        else this.avalibleShots = this.maxAvalibleShots;
+    };
+
     // engine object for sound loop
+    /*
     this.engine = {
         isEngineWork : true,
-        sound : new Audio("../audio/tank/TankengineHeavyLoop.wav"),
+        sound : new Audio("../audio/tank/TankengineHeavyLoop.mp3"),
         soundLoop : () => {
             //this.engine.sound.contentEditable = true;
             this.engine.sound.volume = 0.1;
             if(this.engine.isEngineWork) this.engine.sound.play();
         }
     }
-
+    */
 }
 }

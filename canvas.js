@@ -26,13 +26,14 @@ const playerTank = new Tank(150 , 200 , 4 , Defualt_TankImgSource);
 
 document.addEventListener("keypress" , playerTank.move);
 
+let shotTime = setInterval(_ =>{
+    playerTank.shotAccess.reverse();
+}, playerTank.tankDelay);
+
 // CLICK EVENT FOR SHOTTING 
 // when player click in canvas tank shot bullets
 canvas.addEventListener("click" , function shotBullet() {
-    //setTimeout(_ =>{
-        playerTank.Bullets.push(new Bullet((playerTank.x + playerTank.height/2 + 6 ) , (playerTank.y + playerTank.width/2 + 3), playerTank.TankCaseString));
-        playerTank.Bullets.push(new Bullet((playerTank.x + playerTank.height/2 + 6 ) , (playerTank.y + playerTank.width/2 - 8), playerTank.TankCaseString));
-    //}, 250)
+    playerTank.shot();
 });
 
 // function who draw ground depeneding grassGround object from textuerGround.js
@@ -106,7 +107,7 @@ function Render(){
     // Rendering Player Tank
     playerTank.render();
     // bad engine sound
-    playerTank.engine.soundLoop();
+    //playerTank.engine.soundLoop();
 
     // turn of shadow before drawing fps & frame
     ctx.shadowColor = "transparent";
