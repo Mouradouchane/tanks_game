@@ -25,16 +25,17 @@ constructor(x , y , speed = 4, imgs = []){
     this.width  = this.size;
     this.height = this.size;
     this.isTankFire = false;
+    // array of all bullets in scene
     this.Bullets = [];
     // shot delay by milliseconds
-    this.tankDelay = 1000;
-    this.avalibleShots = 1;
-    this.maxAvalibleShots = 1;
-    this.shotAccess = [true,false];
+    this.tankShotingDelay = 1500;
+    this.avalibleShots = 2;
+    this.maxAvalibleShots = 2;
+    this.shotAccess = true;
     this.LastBullet = new Bullet(this.x + this.width/2, this.y + this.height/2, this.TankCaseString);
     this.collisionSound = new Audio("../audio/tank/collisionSound.mp3");
 
-    // safe Doistance when we check collision detection 
+    // safe Distance when we check collision detection 
     this.safeD = 1;
     // value used by ropsitionTank function  
     this.respositionValue = 2;
@@ -180,9 +181,10 @@ constructor(x , y , speed = 4, imgs = []){
     };
 
     this.shot = () => {
-        if(this.shotAccess[0] && this.avalibleShots != 0){
-        
-        --this.avalibleShots;
+        if(this.shotAccess){
+            
+        this.shotAccess = false;
+    
         switch(this.TankCaseString){
             case "left":
             case "right":
@@ -198,7 +200,39 @@ constructor(x , y , speed = 4, imgs = []){
         }
 
         }
-        else this.avalibleShots = this.maxAvalibleShots;
+    };
+
+    // deatils for shoting delay in canvas + UI stuff 
+    this.shotDelayValues = {
+        x : 0 , 
+        y : canvas.height - (this.height + 20),
+        width : 200 , 
+        height : 60 ,
+        readyColor : "rgba(0,255,255,0.7)" ,
+        readyText : "READY : ",
+        reloadColor: "rgba(255,0,0,0.7)",
+        relaodText : "RELOADING...",
+        reloadTextcolor : "black",
+    };
+    this.drawShotDelay = () =>{
+        if(this.shotAccess){
+            // background
+            ctx.fillStyle = this.shotDelayValues.readyColor;
+            ctx.fillRect(this.shotDelayValues.x , this.shotDelayValues.y , this.shotDelayValues.width , this.shotDelayValues.height);
+            
+            // realoding text 
+            ctx.fillStyle = this.shotDelayValues.reloadTextcolor;
+            ctx.fillText(`${this.shotDelayValues.readyText} ${this.avalibleShots}` , this.shotDelayValues.x + 20 ,this.shotDelayValues.y + 40 , 160)
+        }
+        else {
+            // background    
+            ctx.fillStyle = this.shotDelayValues.reloadColor;
+            ctx.fillRect(this.shotDelayValues.x , this.shotDelayValues.y , this.shotDelayValues.width , this.shotDelayValues.height);
+            
+            // realoding text 
+            ctx.fillStyle = this.shotDelayValues.reloadTextcolor;
+            ctx.fillText(this.shotDelayValues.relaodText , this.shotDelayValues.x + 20 ,this.shotDelayValues.y + 40 , 160)
+        }
     };
 
     // engine object for sound loop

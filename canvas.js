@@ -26,9 +26,10 @@ const playerTank = new Tank(150 , 200 , 4 , Defualt_TankImgSource);
 
 document.addEventListener("keypress" , playerTank.move);
 
+// auto reload for next shot every '?/ms' depend tankShotingDelay proprty in 'tank class'
 let shotTime = setInterval(_ =>{
-    playerTank.shotAccess.reverse();
-}, playerTank.tankDelay);
+    playerTank.shotAccess = true;
+}, playerTank.tankShotingDelay);
 
 // CLICK EVENT FOR SHOTTING 
 // when player click in canvas tank shot bullets
@@ -108,9 +109,13 @@ function Render(){
     playerTank.render();
     // bad engine sound
     //playerTank.engine.soundLoop();
-
+    
     // turn of shadow before drawing fps & frame
     ctx.shadowColor = "transparent";
+    
+    // rendering shots delay UI
+    playerTank.drawShotDelay();
+
     // FPS & FRAME 
     if(game.sitting.counterFPS)   game.fps += 1; game.drawFPS();
     if(game.sitting.counterFRAME) game.frame += 1; game.drawFRAME();
