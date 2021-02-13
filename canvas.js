@@ -4,8 +4,11 @@ import {grassGround} from "./objects/textuerGround.js";
 import {BuildBlock} from "./objects/blocks.js";
 import {Bullet , BulletHitWallEffect} from "./objects/bullets.js";
 
-// game object just for game sitting & tell us about game cases 
+// game object just for game sitting & telling us about game cases 
 const game = new GAME();
+
+// start & stop button just for testing how should we "stop//start" rendering in canvas
+var [startButton , stopButton] = document.querySelectorAll(".testControlCanvas");
 
 // target canvas in constant
 export const canvas = document.querySelector("#gameCanvas");
@@ -61,7 +64,23 @@ let fpsControl = setInterval(() => {
     game.upDatingFPS();
 } , 1000);
 
-function Render(){
+// adding clicks events in "start//stop" buttons for "start//stop" rendering in canvas
+
+// == start rendering function ==
+startButton.addEventListener("click" , function(){
+    renderControl = requestAnimationFrame(Render);
+});
+
+// == stop rendering function ==
+stopButton.addEventListener("click" , function(){
+    // doing some stuff before stoping rendering like cleaning all bullets & this game-round stuff 
+    game.gameStatus = "stoping";
+    
+    cancelAnimationFrame(renderControl);
+});
+
+var renderControl = null;
+export function Render(){
     // start animation
     ctx.clearRect(0,0,800,600);
 
@@ -120,7 +139,7 @@ function Render(){
     if(game.sitting.counterFPS)   game.fps += 1; game.drawFPS();
     if(game.sitting.counterFRAME) game.frame += 1; game.drawFRAME();
 
-    requestAnimationFrame(Render);
+    renderControl = requestAnimationFrame(Render);
 }
 
-Render();
+//Render();

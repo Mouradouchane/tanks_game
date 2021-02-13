@@ -5,11 +5,19 @@
 }
 
 #gameCanvas{
-    position: fixed;
+    position: relative;
     width: 800px;
     height: 600px;
     border: 1px solid black;
-    left: 50%;
-    top: 50%;
+    left: calc((100% - 800px) / 2);
+    top: calc((100% - 600px) / 2);
+    display:block;
+    /*
     transform: translate(-50% , -50%);
+    */
+}
+
+.testControlCanvas{
+    position : relative;
+    margin-left : 8px;
 }
