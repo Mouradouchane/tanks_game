@@ -30,14 +30,19 @@ const playerTank = new Tank(150 , 200 , 4 , Defualt_TankImgSource);
 document.addEventListener("keypress" , playerTank.move);
 
 // auto reload for next shot every '?/ms' depend tankShotingDelay proprty in 'tank class'
-let shotTime = setInterval(_ =>{
+let shotTime = setInterval( _ =>{
     playerTank.shotAccess = true;
 }, playerTank.tankShotingDelay);
 
 // CLICK EVENT FOR SHOTTING 
 // when player click in canvas tank shot bullets
 canvas.addEventListener("click" , function shotBullet() {
-    playerTank.shot();
+    switch(game.gameStatus){
+        case "playing": playerTank.shot(); break;
+        
+        case "stoping":
+        default : return null;
+    }
 });
 
 // function who draw ground depeneding grassGround object from textuerGround.js
@@ -68,7 +73,21 @@ let fpsControl = setInterval(() => {
 
 // == start rendering function ==
 startButton.addEventListener("click" , function(){
-    renderControl = requestAnimationFrame(Render);
+    switch(game.gameStatus){
+    
+    case "stoping":
+        // game status important
+        game.gameStatus = "playing";
+    
+        // responing in safe zone first 
+        playerTank.responInSafeZone();
+    
+        // start rendering & storing Frame-ID in renderControl for stoping rendering if we want
+        renderControl = requestAnimationFrame(Render);
+    break;
+    case "playing":
+    default : return null; 
+    }
 });
 
 // == stop rendering function ==
@@ -76,12 +95,21 @@ stopButton.addEventListener("click" , function(){
     // doing some stuff before stoping rendering like cleaning all bullets & this game-round stuff 
     game.gameStatus = "stoping";
     
+    // clearining frame
+    ctx.clearRect(0,0,canvas.width , canvas.height);
+
+    // make array of bullets empty [] :)
+    playerTank.Bullets = [];
+
     cancelAnimationFrame(renderControl);
 });
 
+// this var for controlling rendering in canvas "start/stop"
 var renderControl = null;
+
+// main render function
 export function Render(){
-    // start animation
+    // start rendering by cleaining old renderd frame 
     ctx.clearRect(0,0,800,600);
 
     // shadow sitting

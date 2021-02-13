@@ -12,7 +12,7 @@ const Defualt_TankImgSource = [new Image() , new Image() , new Image() , new Ima
 export {Defualt_TankImgSource};
 
 export class Tank{
-constructor(x , y , speed = 4, imgs = []){
+constructor(x = 150, y = 200 , speed = 4, imgs = []){
     // inhert bullet form fire.js
     this.speed = speed;
     this.x = x;
@@ -62,7 +62,7 @@ constructor(x , y , speed = 4, imgs = []){
         this.collisionDetectionDir = null;
     };
 
-    this.move = (e = event) => {
+    this.move = (e = Event) => {
         if(this.collisionDetection){
             // if tank glitch in block this for press r to teleport
             if(e.key == "r") this.y = 80 , this.x = 210 , this.collisionDetection = false;
@@ -233,6 +233,14 @@ constructor(x , y , speed = 4, imgs = []){
             ctx.fillStyle = this.shotDelayValues.reloadTextcolor;
             ctx.fillText(this.shotDelayValues.relaodText , this.shotDelayValues.x + 20 ,this.shotDelayValues.y + 40 , 160)
         }
+    };
+
+    // just for making tank respon in safe zone if kind of glitches happen 
+    this.responInSafeZone = () =>{
+        this.x = 150 , this.y = 200;
+        this.collisionDetectionDir = "top";
+        this.TankCaseString = "top";
+        this.TankCase = this.SourceImges[0];
     };
 
     // engine object for sound loop

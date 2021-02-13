@@ -4,7 +4,7 @@ import {ctx} from "./canvas.js";
 // for making game-object 
 export class GAME{
     constructor(){
-        this.gameStatus = "playing";
+        this.gameStatus = "stoping";
 
         this.sitting = {
             counterFPS   : true,
