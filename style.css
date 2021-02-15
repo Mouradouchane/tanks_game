@@ -11,7 +11,7 @@
     border: 1px solid black;
     left: calc((100% - 800px) / 2);
     top: calc((100% - 600px) / 2);
-    display:block;
+    display:none;
     /*
     transform: translate(-50% , -50%);
     */

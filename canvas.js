@@ -78,6 +78,9 @@ startButton.addEventListener("click" , function(){
     case "stoping":
         // game status important
         game.gameStatus = "playing";
+
+        // make canvas visible in start
+        canvas.style.display = "block";
     
         // responing in safe zone first 
         playerTank.responInSafeZone();
@@ -85,23 +88,30 @@ startButton.addEventListener("click" , function(){
         // start rendering & storing Frame-ID in renderControl for stoping rendering if we want
         renderControl = requestAnimationFrame(Render);
     break;
-    case "playing":
-    default : return null; 
+
+    case "playing": default : return null; 
     }
 });
 
 // == stop rendering function ==
 stopButton.addEventListener("click" , function(){
-    // doing some stuff before stoping rendering like cleaning all bullets & this game-round stuff 
-    game.gameStatus = "stoping";
-    
-    // clearining frame
-    ctx.clearRect(0,0,canvas.width , canvas.height);
+    switch(game.gameStatus){
+    case "playing":
+        // doing some stuff before stoping rendering like cleaning all bullets & this game-round stuff 
+        game.gameStatus = "stoping";
+        
+        // make canvas invisible in stop
+        canvas.style.display = "none";
 
-    // make array of bullets empty [] :)
-    playerTank.Bullets = [];
+        // clearining frame
+        ctx.clearRect(0,0,canvas.width , canvas.height);
 
-    cancelAnimationFrame(renderControl);
+        // make array of bullets empty [] :)
+        playerTank.Bullets = [];
+
+        cancelAnimationFrame(renderControl);
+    case "stoping" : default : return null;
+    }
 });
 
 // this var for controlling rendering in canvas "start/stop"
