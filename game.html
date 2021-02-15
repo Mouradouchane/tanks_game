@@ -4,23 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="#" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="mainMenuUI.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/mainMenuUI.css">
+    <link rel="stylesheet" href="css/mainBtnsSection.css">
     <title> Tank </title>
 </head>
 <body>
-    <!-- GAME-UI : main menu -->
+    <!-- GAME-UI : main menu : navbar -->
     <div id="mainMenuBar">
-        <img src="../Graphics/Player/defaultPlayerImage.png" alt="player_img" id="playerImage">
-        <div id="customProgressBarFroPlayerLevel"> 
-            <div id="progressPercent"> </div>
+        <div id="avatr_level">
+            <img src="../Graphics/Player/defaultPlayerImage.png" alt="player_img" id="playerImage">
+            <div id="customProgressBarForPlayerLevel"> 
+                <div id="progressPercent"> </div>
+            </div>
         </div>
+
+        <div id="playerCoins">
+            <img src="../Graphics/UI/coinUI.png" alt="player_img" id="playerCoinsImage">
+            <p id="playerCoinsCount">00000</p>
+        </div>
+
+        <img src="../Graphics/UI/level1.png" alt="trophies" id="PlayerTrophiesImage">
+
     </div>
 
-    <canvas id="gameCanvas"> </canvas>
-    <button class="testControlCanvas">start</button>
-    <button class="testControlCanvas">quit</button>
+    <!-- GAME-UI : main menu : main section -->
+    <div id="gameBtnsSection">
+        <div id="gameControlSide">
+            <button class="testControlCanvas" id="newGameButton">NEW GAME</button>
+            <button class="testControlCanvas">LEVEL EDITOR</button>   
+            <button class="testControlCanvas">SITTING</button>     
+        </div>
+        <div id="storeSide">
+            <p>
+                STORE
+            </p>
+        </div>
+    </div>
     
+    <button id="quitRoundButton">QUIT</button>
+        
+    <canvas id="gameCanvas"> </canvas>
+ 
     <script src="../canvas.js"         type="module"></script>
     <script src="../game.js"            type="module"></script>
     <script src="../objects/tank.js"   type="module"></script>

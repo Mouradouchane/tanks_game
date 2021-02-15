@@ -1,0 +1,30 @@
+
+*{
+    padding : 0;
+    margin: 0;
+}
+
+body{
+    background-image: url("../Graphics/UI/mainBackground.png");
+    background-repeat: repeat;
+    background-size: cover 100% 100%;
+}
+
+#gameCanvas{
+    position: relative;
+    width: 800px;
+    height: 600px;
+    border: 1px solid black;
+    left: calc((100% - 800px) / 2);
+    top: calc((100% - 600px) / 2);
+    display:none;
+    /*
+        transform: translate(-50% , -50%);
+    */
+}
+
+.testControlCanvas{
+    position : relative;
+    margin-left : 8px;
+}
+

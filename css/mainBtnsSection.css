@@ -1,0 +1,79 @@
+
+html{
+    --storeBackgroundColor: rgba(12, 69, 157, 0.72);
+    --globalTransition : 0.2s;
+    --buttonsFontSize : 4vh;
+    --superLightColor: rgb(202, 53, 175);
+    --lightColor: rgb(215, 69, 117);
+    --darkColor: rgb(134, 23, 113);
+    --shadedColor: rgb(119, 22, 94);
+    --B_lightColor: rgb(211, 68, 68);
+    --B_darkColor: rgb(191,48,88);
+}
+
+#gameBtnsSection{
+    position: fixed;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 80vh;
+    height: 40vh;
+}
+
+#gameControlSide{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    float:left;
+    background-image: linear-gradient(var(--B_lightColor), var(--B_darkColor));
+}
+
+#storeSide{
+    background-color : var(--storeBackgroundColor);
+    position: relative;
+    width: 50%;
+    height: 100%; 
+    float:right;
+    cursor : pointer;
+    transition: var(--globalTransition);
+}
+
+#storeSide:active{
+    transform: scale(0.9);
+}
+
+#storeSide p{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 8vh;
+    font-family: tahoma;
+    font-weight: bold;
+    transform: translate(-50% , -50%);
+    color: rgb(255, 255, 255);
+    text-shadow: 0px 0px 2vh rgba(0, 0, 0, 0.8);
+}
+
+/* new game button */
+.testControlCanvas{
+    font-size: 8vh;
+    position: relative;
+    font-size: calc(var(--buttonsFontSize) - 1vh);
+    padding: 2vh;
+    cursor: pointer;
+    transition: var(--globalTransition);
+    box-shadow: 0vh 0.8vh 0vh 0vh var(--shadedColor);
+    display:block;
+    left:50%;
+    top: calc(50% - 10vh);
+    transform: translate(-50%,-50%);
+    margin : 1vh;
+    border:none;
+    background-image: linear-gradient(var(--superLightColor) 5%,var(--lightColor) ,var(--darkColor));
+    color : rgb(226, 195, 255);
+}
+
+.testControlCanvas:active{
+    transform: translate(-50%,-50%) scale(0.9) ;
+    box-shadow: 0vh 0vh 0vh 0vh var(--shadedColor);
+}
