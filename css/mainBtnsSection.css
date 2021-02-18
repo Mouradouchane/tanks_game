@@ -1,14 +1,26 @@
+/* ~~ defining fonts for UI usage ~~ */
+@font-face{
+    font-family: ARCADE;
+    src : url(../Graphics/fonts/ARCADE.TTF);
 
+    font-family: crackman;
+    src : url(../Graphics/fonts/crackman.ttf);
+
+    font-family: ARCADECLASSIC;
+    src : url(../Graphics/fonts/ARCADECLASSIC.TTF);
+}
+
+/* some var for buttons */
 html{
     --storeBackgroundColor: rgba(12, 69, 157, 0.72);
     --globalTransition : 0.2s;
     --buttonsFontSize : 4vh;
     --superLightColor: rgb(202, 53, 175);
-    --lightColor: rgb(215, 69, 117);
-    --darkColor: rgb(134, 23, 113);
-    --shadedColor: rgb(119, 22, 94);
-    --B_lightColor: rgb(211, 68, 68);
-    --B_darkColor: rgb(191,48,88);
+    --lightColor    : rgb(215, 69, 117);
+    --darkColor     : rgb(134, 23, 113);
+    --shadedColor   : rgba(0, 0, 0, 0.815);
+    --B_lightColor  : rgb(211, 68, 68);
+    --B_darkColor   : rgb(191,48,88);
 }
 
 #gameBtnsSection{
@@ -56,24 +68,29 @@ html{
 
 /* new game button */
 .testControlCanvas{
-    font-size: 8vh;
     position: relative;
-    font-size: calc(var(--buttonsFontSize) - 1vh);
+    font-size: 3vh;
+    font-family: ARCADECLASSIC;
+    color :var(--B_darkColor);
     padding: 2vh;
+    width : 25vh;
+    height: 8vh;
     cursor: pointer;
     transition: var(--globalTransition);
-    box-shadow: 0vh 0.8vh 0vh 0vh var(--shadedColor);
     display:block;
     left:50%;
     top: calc(50% - 10vh);
     transform: translate(-50%,-50%);
     margin : 1vh;
     border:none;
-    background-image: linear-gradient(var(--superLightColor) 5%,var(--lightColor) ,var(--darkColor));
-    color : rgb(226, 195, 255);
+    background-image: url(../Graphics/UI/buttonUI.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-x: 0.5vh;
 }
 
 .testControlCanvas:active{
-    transform: translate(-50%,-50%) scale(0.9) ;
-    box-shadow: 0vh 0vh 0vh 0vh var(--shadedColor);
+    background-image: url(../Graphics/UI/buttonCLickedUI.png);
+    transform: translate(-50%,-50%) scale(0.99);
 }
