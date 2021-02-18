@@ -15,12 +15,8 @@ html{
     --storeBackgroundColor: rgba(12, 69, 157, 0.72);
     --globalTransition : 0.2s;
     --buttonsFontSize : 4vh;
-    --superLightColor: rgb(202, 53, 175);
-    --lightColor    : rgb(215, 69, 117);
-    --darkColor     : rgb(134, 23, 113);
     --shadedColor   : rgba(0, 0, 0, 0.815);
-    --B_lightColor  : rgb(211, 68, 68);
-    --B_darkColor   : rgb(191,48,88);
+    --textColor   : rgb(255, 255, 255);
 }
 
 #gameBtnsSection{
@@ -37,7 +33,7 @@ html{
     width: 50%;
     height: 100%;
     float:left;
-    background-image: linear-gradient(var(--B_lightColor), var(--B_darkColor));
+    background-image: linear-gradient(rgb(86, 53, 206), rgba(135, 112, 249, 0.85));
 }
 
 #storeSide{
@@ -59,11 +55,11 @@ html{
     left: 50%;
     top: 50%;
     font-size: 8vh;
-    font-family: tahoma;
+    font-family: ARCADECLASSIC;
     font-weight: bold;
     transform: translate(-50% , -50%);
     color: rgb(255, 255, 255);
-    text-shadow: 0px 0px 2vh rgba(0, 0, 0, 0.8);
+    /* text-shadow: 0px 0px 2vh rgba(0, 0, 0, 0.8); */
 }
 
 /* new game button */
@@ -71,7 +67,7 @@ html{
     position: relative;
     font-size: 3vh;
     font-family: ARCADECLASSIC;
-    color :var(--B_darkColor);
+    color :var(--textColor);
     padding: 2vh;
     width : 25vh;
     height: 8vh;

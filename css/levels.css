@@ -1,0 +1,43 @@
+
+html{
+    --levelsBackgroundColor : rgba(95, 2, 202, 0.8);
+    --titleBackgroundColor : rgba(153, 64, 255, 0.8);
+}
+
+#levels{
+    position: fixed;
+    background :var(--levelsBackgroundColor);
+    width: 80%;
+    height: 80%;
+    top: calc(100% - 80%);
+    left: calc(50% - 40%);
+    overflow: hidden;
+    border-radius: 0.5vh;
+}
+
+#title{
+    position: relative;
+    color : white;
+    font-family: ARCADECLASSIC;
+    background-color : var(--titleBackgroundColor);
+    text-align: center;
+    font-size: 4vh;
+    cursor : default;
+}
+
+#close{
+    position: absolute;
+    float:right;
+    right: 0.5vh;
+    top: 0.5vh;
+    width: 3vh;
+    height: 3vh;
+    cursor: pointer;
+    background-image: url(../Graphics/UI/close.png);
+    background-size: cover;
+    transition: var(--globalTransition);
+}
+
+#close:active{
+    transform: scale(0.9);
+}

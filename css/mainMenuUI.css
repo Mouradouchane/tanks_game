@@ -1,9 +1,11 @@
 
 html{
     --mainMenuBarColor : rgba(0,0,0,0.8);
-    --avatarBoderColor : rgb(77, 255, 255);
-    --progressBackground : rgb(6, 112, 112);
+    --avatarBoderColor : rgb(136, 86, 247);
+    --progressBackground : rgb(67, 5, 201);
+    --progressPercent : rgb(136, 86, 247);
     --coinsColor : yellow;
+    --globalTransition : 0.2s;
 }
 
 #mainMenuBar{
@@ -31,6 +33,7 @@ html{
     /* box-shadow: 0px 0px 0.6vh 0.2vh var(--avatarBoderColor); */
     float :left;
     margin-top: -0.8vh;
+    z-index: 4;
 }
 
 #customProgressBarForPlayerLevel{
@@ -50,8 +53,9 @@ html{
     position: relative;
     width: 10vh;
     height: 3vh;
-    background-color: var(--avatarBoderColor);
-    box-shadow: 0px 0px 1vh 0.4vh var(--avatarBoderColor);
+    margin-left: -0.5vh;
+    background-color: var(--progressPercent);
+    box-shadow: 0px 0px 1vh 0.4vh var(--progressPercent);
 }
 
 
@@ -70,6 +74,12 @@ html{
     width : 6vh;
     height: 6vh;
     float :left;
+    border-radius: 6vh;
+    transition: var(--globalTransition);
+    cursor: pointer;
+}
+#playerCoinsImage:active{
+    transform: scale(0.9);
 }
 
 #playerCoinsCount{
@@ -97,4 +107,14 @@ html{
     right: 4vh;
     top: 2vh;
     cursor: pointer;
+    transition: var(--globalTransition);
+    border-radius: 6vh;
+}
+
+#PlayerTrophiesImage:hover{
+    box-shadow: 0vh 0vh 1vh 0.5vh rgb(154, 42, 38);
+}
+
+#PlayerTrophiesImage:active{
+    transform: scale(0.9);
 }
