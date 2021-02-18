@@ -2,6 +2,9 @@
 html{
     --levelsBackgroundColor : rgba(95, 2, 202, 0.8);
     --titleBackgroundColor : rgba(153, 64, 255, 0.8);
+
+    --levelBackgroundColor : rgb(12, 150, 232);
+    --levelShadedBackgroundColor : rgb(6, 109, 168);
 }
 
 #levels{
@@ -40,4 +43,70 @@ html{
 
 #close:active{
     transform: scale(0.9);
+}
+
+
+/* ~~ levels UI ~~ */
+
+.level{
+    position: relative;
+    width : 14vh;
+    height: 20vh;
+    margin : 1vh;
+    display: inline-block;
+    transition: var(--globalTransition);
+    cursor :pointer;
+}
+
+.level:active{
+    transform: scale(0.9);
+}
+
+.levelBackground{
+    position: absolute;
+    width: 100%;
+    height: calc(94% -  2.5vh);
+    background : var(--levelBackgroundColor);
+    border-radius: 1vh;
+    z-index: 1;
+}
+
+.levelBackgroundShaded{
+    position: relative;
+    width: 100%;
+    height: calc(100% - 2.5vh);
+    background : var(--levelShadedBackgroundColor);
+    border-radius: 1vh;
+}
+
+.levelLogo{
+    position: relative;
+    width: 90%;
+    height: calc(90% - 2.5vh);
+    left: 5%;
+    display: block;
+}
+
+.levelResloution{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 4vh;
+    text-align: center;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 2.5vh;
+    margin-top: 0vh;
+}
+
+.levelName{
+    position: relative;
+    width: 100%;
+    font-family: monospace;
+    font-size: 2.5vh;
+    color : white;
+    text-align: center;
+    font-weight: bold;
+    word-wrap: break-word;
+    display: block;
 }
