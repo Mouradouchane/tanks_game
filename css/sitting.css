@@ -2,9 +2,11 @@
 html{
     --sittingBackgroundColor : rgba(228, 54, 219, 0.5);
     --backgroundAndBorderColor : rgb(37,37,37);
+    --titlesColor : rgb(76, 250, 250);
+    --subSideBG : rgba(37, 37, 37, 0.884);
 }
 
-#sittingSection{
+#sittingSections{
     position: absolute;
     width: 100%;
     height: 90%;
@@ -14,7 +16,7 @@ html{
 }
 
 /* avatar hole section */
-#playerProfielUI{
+.sittingSection{
     position: relative;
     width: 100%;
     height: 24vh;
@@ -61,5 +63,90 @@ html{
     width : 4vh;
     height: 4vh;
     padding-left: 2vh;
+    float:left;
+}
+
+/* section player inputs */
+#playerProfileInputs{
+    width: auto;
+}
+
+/* all titles in sitting */
+.titles{
+    position: relative;
+    font-family: ARCADECLASSIC;
+    color: var(--titlesColor);
+    font-size: 8vh;
+    left: 4vh;
+    margin-top: 1vh;
+    animation: lightingTitles 1s linear infinite;
+    cursor: default;
+}
+/* all HR in sitting */
+.sittingHR{
+    position :relative;
+    width : calc(100% - 8vh);
+    height: 1vh;
+    left  : 4vh;
+    background-color : var(--titlesColor);
+    border:none;
+    animation: lightingTitlesHR 1s linear infinite;
+}
+
+@keyframes lightingTitles{
+    0%{
+        text-shadow: 0px 0px 0vh var(--titlesColor);
+    }
+    50%{
+        text-shadow: 0px 0px 3vh var(--titlesColor);
+    }
+    100%{
+        text-shadow: 0px 0px 0vh var(--titlesColor);
+    }
+}
+
+@keyframes lightingTitlesHR{
+    0%{
+        box-shadow: 0px 0px 0vh 0vh var(--titlesColor);
+    }
+    50%{
+        box-shadow: 0px 0px 2vh 0vh var(--titlesColor);
+    }
+    100%{
+        box-shadow: 0px 0px 0vh 0vh var(--titlesColor);
+    }
+}
+
+
+/* sub sides in sitting */
+.subSide{
+    position: relative;
+    background-color: var(--subSideBG);
+    float: left;
+    left: 10%;
+    width: 40%;
+    height: 10vh;
+    top: 2vh;
+    margin-left: 1vh;
+}
+
+.subSide p{
+    font-size: 4vh;
+    font-family: ARCADECLASSIC;
+    cursor : default;
+    color : white;
+    text-align: center;
+}
+
+.subSide input{
+    position: relative;
+    transform: translate(-50% , 0%);
+    left: 50%;
+    top: 0vh;
+    width: 80%;
+    height: 4vh;
+    font-size: 3vh;
+    font-family: ARCADECLASSIC;
+    border:none;
     float:left;
 }

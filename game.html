@@ -79,18 +79,38 @@
     </div>
 
     <!-- sitting -->
-    <div id="sittingSection">
-        <div id="playerProfielUI">
+    <div id="sittingSections">
+        <div id="playerProfielUI" class="sittingSection">
             <img src="Graphics/Player/defaultPlayerImage.png" id="SittingPlayerImage" alt="player image">
             <p id="avatarPlayerName">playerName</p>
             <div id="trophyies">
                 <img src="Graphics/UI/testTrophy.png" alt="bronz trophy" class="trophies">
-                <img src="Graphics/UI/testTrophy.png" alt="bronz trophy" class="trophies">
-                <img src="Graphics/UI/testTrophy.png" alt="bronz trophy" class="trophies">
-                <img src="Graphics/UI/testTrophy.png" alt="bronz trophy" class="trophies">
-                <img src="Graphics/UI/testTrophy.png" alt="bronz trophy" class="trophies">
+            </div>
+        </div>
+
+        <div id="playerProfileInputs" class="sittingSection">
+            <p class="titles">PROFILE</p>
+            <hr class="sittingHR">
+
+            <div id="nameSide" class="subSide">
+                <p id="newName">NAME</p>
+                <input type="text" id="inputNewName" placeholder="new name">
             </div>
 
+            <div id="avatarSide" class="subSide">
+                <p id="newAvatar">AVATAR</p>
+                <input type="file" id="takeNewImage">
+            </div>
+        </div>
+        
+        <div class="sittingSection">
+            <p class="titles">KEYBOARD</p>
+            <hr class="sittingHR">
+        </div>
+
+        <div class="sittingSection">
+            <p class="titles">SOUNDS</p>
+            <hr class="sittingHR">
         </div>
     </div>
 
