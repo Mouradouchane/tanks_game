@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/mainMenuUI.css">
     <link rel="stylesheet" href="css/mainBtnsSection.css">
     <link rel="stylesheet" href="css/levels.css">
+    <link rel="stylesheet" href="css/sitting.css">
     <title> Tank </title>
 </head>
 <body>
@@ -25,8 +26,8 @@
             <p id="playerCoinsCount">00000</p>
         </div>
 
-        <img src="../Graphics/UI/level1.png" alt="trophies" id="PlayerTrophiesImage">
-
+        <img src="../Graphics/UI/level1.png" alt="trophies" id="PlayerTrophiesImage" class="navBarItems">
+        <img src="../Graphics/UI/sittingLogoUI.png" alt="sitting" id="sittingImage"  class="navBarItems">
     </div>
 
     <!-- GAME-UI : main menu : main section -->
@@ -77,12 +78,28 @@
 
     </div>
 
+    <!-- sitting -->
+    <div id="sittingSection">
+        <div id="playerProfielUI">
+            <img src="Graphics/Player/defaultPlayerImage.png" id="SittingPlayerImage" alt="player image">
+            <p id="avatarPlayerName">playerName</p>
+            <div id="trophyies">
+                <img src="Graphics/UI/testTrophy.png" alt="bronz trophy" class="trophies">
+                <img src="Graphics/UI/testTrophy.png" alt="bronz trophy" class="trophies">
+                <img src="Graphics/UI/testTrophy.png" alt="bronz trophy" class="trophies">
+                <img src="Graphics/UI/testTrophy.png" alt="bronz trophy" class="trophies">
+                <img src="Graphics/UI/testTrophy.png" alt="bronz trophy" class="trophies">
+            </div>
+
+        </div>
+    </div>
+
     <button id="quitRoundButton">QUIT</button>
         
     <canvas id="gameCanvas"> </canvas>
  
     <script src="../canvas.js"         type="module"></script>
-    <script src="../game.js"            type="module"></script>
+    <script src="../game.js"           type="module"></script>
     <script src="../objects/tank.js"   type="module"></script>
 </body>
 </html>

@@ -1,0 +1,65 @@
+
+html{
+    --sittingBackgroundColor : rgba(228, 54, 219, 0.5);
+    --backgroundAndBorderColor : rgb(37,37,37);
+}
+
+#sittingSection{
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    background-color :var(--sittingBackgroundColor);
+    overflow: hidden;
+    top: 10%;
+}
+
+/* avatar hole section */
+#playerProfielUI{
+    position: relative;
+    width: 100%;
+    height: 24vh;
+}
+
+/* avatar player image */
+#SittingPlayerImage{
+    position: absolute;
+    border : 1vh solid var(--backgroundAndBorderColor);
+    width: 20vh;
+    height: 20vh;
+    border-radius: 20vh;
+    top: 2vh;
+    z-index: 1;
+    left: 4vh;
+}
+
+/* player name */
+#avatarPlayerName{
+    position: absolute;
+    color :white;
+    font-size: 6vh;
+    padding : 1vh;
+    padding-left: 2vh;
+    background-color : var(--backgroundAndBorderColor);
+    border-radius: 0.8vh;
+    font-family: ARCADECLASSIC;
+    top: 10vh;
+    left: 24vh;
+    cursor: default;
+}
+
+/* trops */
+#trophyies{
+    position:absolute;
+    height: 5vh;
+    width: calc(6vh * 6);
+    top: 18.5vh;
+    left: 25vh;
+}
+
+.trophies{
+    position: relative;
+    width : 4vh;
+    height: 4vh;
+    padding-left: 2vh;
+    float:left;
+}

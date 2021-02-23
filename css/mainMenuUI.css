@@ -97,9 +97,8 @@ html{
     cursor: default;
 }
 
-/* Trophies */
-
-#PlayerTrophiesImage{
+/* trophies & sitting in class navBarItems*/
+.navBarItems{
     position : fixed;
     width : 6vh;
     height: 6vh;
@@ -111,10 +110,31 @@ html{
     border-radius: 6vh;
 }
 
+.navBarItems:active{
+    transform: scale(0.9);
+}
+
+/* Trophies */
 #PlayerTrophiesImage:hover{
     box-shadow: 0vh 0vh 1vh 0.5vh rgb(154, 42, 38);
 }
 
-#PlayerTrophiesImage:active{
-    transform: scale(0.9);
+/* sitting */
+#sittingImage{
+    right: calc(5vh + 6vh);
+}
+
+#sittingImage:hover{
+    box-shadow: 0vh 0vh 1vh 0.3vh rgb(255, 255, 255);
+    animation: flip360 0.5s linear infinite;
+}
+
+/* animation for making sitting flip in hover */
+@keyframes flip360{
+    0%{
+        transform: rotateZ(0deg);
+    }
+    100%{
+        transform: rotateZ(360deg);
+    }
 }

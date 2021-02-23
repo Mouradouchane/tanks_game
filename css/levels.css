@@ -19,6 +19,8 @@ html{
     left: calc(50% - 40%);
     overflow: hidden;
     border-radius: 0.5vh;
+
+    display:none;
 }
 
 #title{
