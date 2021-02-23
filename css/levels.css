@@ -5,6 +5,9 @@ html{
 
     --levelBackgroundColor : rgb(12, 150, 232);
     --levelShadedBackgroundColor : rgb(6, 109, 168);
+
+    --addNewLevelBackgroundColor :rgb(99, 249, 157);
+    --addNewLevelShadedBackgroundColor : rgb(67, 185, 113);
 }
 
 #levels{
@@ -109,4 +112,24 @@ html{
     font-weight: bold;
     word-wrap: break-word;
     display: block;
+}
+
+/* new level button */
+#addNewLevelText{
+    position: relative;
+    font-weight: bold;
+    font-family: monospace;
+    font-size : 2.5vh;
+    text-align: center;
+    color : rgb(37, 37, 37);
+}
+
+/* new level background */
+#newBG{
+    background-color : var(--addNewLevelBackgroundColor);
+}
+
+/* shaded background */
+#newBGSHADED{
+    background-color : var(--addNewLevelShadedBackgroundColor);
 }
