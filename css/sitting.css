@@ -1,9 +1,10 @@
 
 html{
-    --sittingBackgroundColor : rgba(228, 54, 219, 0.5);
+    --sittingBackgroundColor : rgba(77, 9, 73, 0.8);
     --backgroundAndBorderColor : rgb(37,37,37);
-    --titlesColor : rgb(76, 250, 250);
+    --titlesColor : rgb(255, 144, 240);
     --subSideBG : rgba(37, 37, 37, 0.884);
+    --keysTitleColor : #49f9af;
 }
 
 #sittingSections{
@@ -11,7 +12,8 @@ html{
     width: 100%;
     height: 90%;
     background-color :var(--sittingBackgroundColor);
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     top: 10%;
 }
 
@@ -149,4 +151,58 @@ html{
     font-family: ARCADECLASSIC;
     border:none;
     float:left;
+}
+
+/* ~~ sitting - keys side */
+
+#keysList{
+    position : relative;
+    width: calc(80% + 2vh);
+    left: 10%;
+    top: 1vh;
+}
+
+.keyS{
+    position: relative;
+    color : white;
+    text-align: center;
+    font-size : 4vh;
+    font-family: ARCADECLASSIC;
+    background-color : var(--backgroundAndBorderColor);
+}
+
+.keysTitles{
+    float :left;
+    width: 60%;
+    color : var(--keysTitleColor);
+    cursor:default;
+}
+
+.keysValues{
+    float : right;
+    width: 40%;
+    cursor : pointer;
+    transition : 0.4s;
+    background: transparent;
+}
+
+.keysValues:hover{
+    animation : hoverKeyChange 0.4s linear infinite;
+}
+
+/* animation when player hover at any key in sitting */
+@keyframes hoverKeyChange{
+    0%{
+        background-color : rgb(72, 249, 175);
+    }
+    50%{
+        background-color : rgba(249, 246, 72, 0.836);
+    }
+    100%{
+        background-color : rgb(72, 249, 175);
+    }
+}
+
+.keysValues:active{
+    transform : scale(0.9);
 }
