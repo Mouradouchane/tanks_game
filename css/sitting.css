@@ -5,6 +5,8 @@ html{
     --titlesColor : rgb(255, 144, 240);
     --subSideBG : rgba(37, 37, 37, 0.884);
     --keysTitleColor : #49f9af;
+    --soundProgressBackgroundColor : #5632b9;
+    --soundProgressColor : #c84df4;
 }
 
 #sittingSections{
@@ -21,12 +23,11 @@ html{
 .sittingSection{
     position: relative;
     width: 100%;
-    height: 24vh;
 }
 
 /* avatar player image */
 #SittingPlayerImage{
-    position: absolute;
+    position: relative;
     border : 1vh solid var(--backgroundAndBorderColor);
     width: 20vh;
     height: 20vh;
@@ -80,7 +81,7 @@ html{
     color: var(--titlesColor);
     font-size: 8vh;
     left: 4vh;
-    margin-top: 1vh;
+    margin-top: 2vh;
     animation: lightingTitles 1s linear infinite;
     cursor: default;
 }
@@ -97,39 +98,45 @@ html{
 
 @keyframes lightingTitles{
     0%{
+        color : var(--titlesColor);
         text-shadow: 0px 0px 0vh var(--titlesColor);
     }
     50%{
-        text-shadow: 0px 0px 3vh var(--titlesColor);
+        color : var(--keysTitleColor);
+        text-shadow: 0px 0px 3vh var(--keysTitleColor);
     }
     100%{
+        color : var(--titlesColor);
         text-shadow: 0px 0px 0vh var(--titlesColor);
     }
 }
 
 @keyframes lightingTitlesHR{
     0%{
+        background-color : var(--titlesColor);
         box-shadow: 0px 0px 0vh 0vh var(--titlesColor);
     }
     50%{
-        box-shadow: 0px 0px 2vh 0vh var(--titlesColor);
+        background-color : var(--keysTitleColor);
+        box-shadow: 0px 0px 2vh 0vh var(--keysTitleColor);
     }
     100%{
+        background-color : var(--titlesColor);
         box-shadow: 0px 0px 0vh 0vh var(--titlesColor);
     }
 }
-
 
 /* sub sides in sitting */
 .subSide{
     position: relative;
     background-color: var(--subSideBG);
-    float: left;
+    display:inline-block;
     left: 10%;
     width: 40%;
     height: 10vh;
-    top: 2vh;
+    top: 1vh;
     margin-left: 1vh;
+    z-index: 2;
 }
 
 .subSide p{
@@ -153,13 +160,14 @@ html{
     float:left;
 }
 
-/* ~~ sitting - keys side */
-
-#keysList{
+/* ~~ sitting - keys & sound side */
+.keysList{
     position : relative;
     width: calc(80% + 2vh);
     left: 10%;
     top: 1vh;
+    z-index : 1;
+    padding-bottom: 2vh;
 }
 
 .keyS{
@@ -169,10 +177,11 @@ html{
     font-size : 4vh;
     font-family: ARCADECLASSIC;
     background-color : var(--backgroundAndBorderColor);
+    display:inline-block;
+    height: calc(100% / 7);
 }
 
 .keysTitles{
-    float :left;
     width: 60%;
     color : var(--keysTitleColor);
     cursor:default;
@@ -205,4 +214,25 @@ html{
 
 .keysValues:active{
     transform : scale(0.9);
+}
+
+
+/* sound progresses side */
+
+.soundProgressInSitting{
+    float : right;
+    width: 35%;
+    height: 3vh;
+    border-radius: 0.5vh;
+    cursor : pointer;
+    transition : 0.4s;
+    background-color: var(--soundProgressBackgroundColor);
+    /* overflow:hidden; */
+}
+
+.soundValueInSitting{
+    height : 100%;
+    width : 50%;
+    background-color: var(--soundProgressColor);
+    box-shadow : 0px 0px 1.5vh 0.4vh var(--soundProgressColor);
 }
