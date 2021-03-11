@@ -2,9 +2,9 @@
 html{
     --storeBackground : rgba(32, 2, 77, 0.88);
     --storeSubMenuBackground : rgb(80, 37, 235);
-    
-    --itemsBackgroundShaded : rgb(41, 20, 88);
-    --itemsBackground : rgb(61, 34, 119);
+
+    --itemsBackgroundShaded :  rgb(29, 14, 81);
+    --itemsBackground : rgb(47, 29, 115);
 }
 
 /* full store side */
@@ -83,12 +83,184 @@ html{
 
 }
 
+/* all items in store : base style */
 .storeItem{
     position: relative;
-    width: calc((100% - 9vh) / 5);
+    width: 20vh;
     height: 30vh;
+    /* shaded background */
     background: #291458;
     left: 1vh;
     top: 1vh;
     display: inline-block;
+}
+
+/* background */
+.itemStruct{
+    position: absolute;
+    width: 100%;
+    height : calc(100% - 1vh);
+    background-color : var(--itemsBackground);
+    /* overflow: hidden; */
+}
+
+.loockedMapLogo{
+    position: relative;
+    width: 80%;
+    left: 10%;
+    display: block;
+}
+
+.itemLevel{
+    position:relative;
+    width: 100%;
+    height: 4vh;
+    background :rgb(0, 255, 55);
+    overflow: hidden;
+    font-family: ARCADECLASSIC;
+    font-size: 3vh;
+    text-align: center;
+    color :white;
+    cursor: default;
+}
+
+.mapDescription{
+    position: relative;
+    display: block;
+    font-size: 2.5vh;
+    font-family: ARCADECLASSIC;
+    color : white;
+    margin-left: 0.8vh;
+    top: 0.8vh;
+}
+
+.mapDescription span{
+    color : rgb(0, 255, 255);
+}
+
+.storeButton{
+    position: relative;
+    background-color : yellow;
+    border-style: none;
+    text-align: center;
+    width: 80%;
+    left: 10%;
+    top: 2vh;
+    font-size: 3vh;
+    font-family: ARCADECLASSIC;
+    cursor: pointer;
+    transition: 0.5s;
+    display: block;
+    border-bottom: 0.5vh solid rgb(160, 160, 7);
+}
+
+.storeButton:active{
+    border-style: none;
+    transform: scale(0.90);
+}
+
+
+/* ============= ARMS / BULLETS =================== */
+.bulletsBackground{
+    position: relative;
+    width: 100%;
+    height: 18vh;
+    background: rgb(236,88,129);
+    background: linear-gradient(0deg, rgba(236,88,129,1) 0%, rgba(70,2,127,1) 81%); 
+}
+
+.bulletLogo{
+    position :absolute;
+    width: 80%;
+    left: 50%;
+    top: calc(18vh/2);
+    transform: translate(-50%,-50%);
+}
+
+.bulletDamageText{
+    position: relative;
+    font-size: 2.2vh;
+    float: left;
+    margin-top : 1vh;
+    margin-left: 0.5vh;
+}
+.bulletDamageProgress{
+    position: relative;
+    width: 10vh;
+    height: 2vh;
+    background-color :rgb(0, 0, 0);
+    float:right;
+    right: 0.5vh;
+    top: 2vh;
+    overflow: hidden;
+}
+
+.damagePerecent{
+    position: relative;
+    width: 5vh;
+    height: 2vh;
+    background-color : rgb(48, 248, 41);
+}
+
+.bayButton{
+    top: 2.5vh;
+}
+
+
+/* ================ tanks ================== */
+.tanksBackground{
+    position: relative;
+    width: 100%;
+    height: 14vh;
+    background: rgb(236,88,129);
+    background: linear-gradient(0deg, rgba(236,88,129,1) 0%, rgba(70,2,127,1) 81%); 
+}
+
+.tankLogo{
+    position: absolute;
+    width: 80%;
+    height: 14vh;
+    top:0%;
+    left: 10%;
+}
+
+.tankText{
+    position: relative;
+    font-family: ARCADECLASSIC;
+    color: white;
+    font-size: 2.2vh;    
+    display: inline-block;
+    left: 0.5vh;
+}
+
+.tankDamageProgress{
+    position: relative;
+    width: 10vh;
+    height: 2vh;
+    background-color :rgb(0, 0, 0);
+    display: inline-block;
+    left: 0.5vh;
+    overflow: hidden;
+}
+
+
+.bayTankButton{
+    position: relative;
+    background-color : yellow;
+    border-style: none;
+    text-align: center;
+    width: 80%;
+    left: 10%;
+    top: 2vh;
+    font-size: 3vh;
+    font-family: ARCADECLASSIC;
+    cursor: pointer;
+    transition: 0.5s;
+    display: block;
+    border-bottom: 0.5vh solid rgb(160, 160, 7);
+}
+
+.bayTankButton:active{
+    border-style: none;
+    transform: scale(0.90);
 }

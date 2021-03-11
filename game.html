@@ -166,10 +166,46 @@
     <!-- GAME UI : store side -->
     <div id="storeSection">
         <div id="mainBackgroundForItems">
-            <div class="mapItem storeItem"></div>
-            <div class="mapItem storeItem"></div>
-            <div class="mapItem storeItem"></div>
-            <div class="mapItem storeItem"></div>
+            <div class="mapItem storeItem">
+                <div class="itemStruct">
+                    <img src="/Graphics/UI/levelLogoUI.png" alt="map" class="loockedMapLogo">
+                    <div class="itemLevel">level : XVIII</div>
+                    <p class="mapSize mapDescription">SIZE : <span>(16x16)</span></p>
+                    <p class="mapType mapDescription">TYPE : <span>ALL</span></p>
+                    <button class="storeButton lockedMapButton" alt="this map is locked">locked</button>
+                </div>
+            </div>
+           
+            <div class="armsItem storeItem">
+                <div class="itemStruct">
+                    <div class="bulletsBackground"></div>
+                    <img src="/Graphics/UI/store/arms/purplGolfBullet.png" alt="bullet" class="bulletLogo">
+                    <div class="itemLevel armsLevel">level:XVIII</div>
+                    <p class="bulletDamageText mapDescription">DAMAGE : </p>
+                    <div class="bulletDamageProgress"> <div class="damagePerecent"></div></div>
+                    <button class="storeButton bayButton" alt="buy it">5000$</button>
+                </div>
+            </div>
+
+            <div class="tankItem storeItem">
+                <div class="itemStruct">
+                    <div class="tanksBackground"></div>
+                    <img src="/Graphics/UI/store/tanks/greenTank.png" alt="tank" class="tankLogo">
+                    <div class="itemLevel tanksLevel">level:XVIII</div>
+
+                    <p class="tankText">DAMAGE :</p>
+                    <div class="tankDamageProgress"> <div class="damagePerecent"></div></div>
+
+                    <p class="tankText">RELOAD :</p>
+                    <div class="tankDamageProgress"> <div class="damagePerecent"></div></div>
+
+                    <!-- <p class="tankText">SPEED :</p>
+                    <div class="tankDamageProgress"> <div class="damagePerecent"></div></div> -->
+
+                    <button class="bayTankButton" alt="buy it">4200$</button>
+                </div>
+            </div>
+            
         </div>
 
         <div id="storeSubMenu">
