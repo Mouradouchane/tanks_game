@@ -184,6 +184,7 @@ html{
     margin-top : 1vh;
     margin-left: 0.5vh;
 }
+
 .bulletDamageProgress{
     position: relative;
     width: 10vh;
@@ -195,10 +196,10 @@ html{
     overflow: hidden;
 }
 
-.damagePerecent{
-    position: relative;
+.perecent{
+    position: absolute;
     width: 5vh;
-    height: 2vh;
+    height: 100%;
     background-color : rgb(48, 248, 41);
 }
 
@@ -224,23 +225,33 @@ html{
     left: 10%;
 }
 
+.fullProgresses{
+    position:relative;
+    overflow: hidden;
+    width: 100%;
+    height: calc(2vh * 5);
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 33% 33% 33%;
+}
+
 .tankText{
     position: relative;
     font-family: ARCADECLASSIC;
     color: white;
-    font-size: 2.2vh;    
-    display: inline-block;
-    left: 0.5vh;
+    font-size: 2.2vh;   
+    width: 100%;
+    height: 100%;
+    text-align: center;
 }
 
-.tankDamageProgress{
+.tankProgress{
     position: relative;
-    width: 10vh;
-    height: 2vh;
+    width: 90%;
+    height: 60%;
     background-color :rgb(0, 0, 0);
-    display: inline-block;
-    left: 0.5vh;
     overflow: hidden;
+    top: 0.5vh;
 }
 
 
@@ -251,7 +262,7 @@ html{
     text-align: center;
     width: 80%;
     left: 10%;
-    top: 2vh;
+    /* top: 2vh; */
     font-size: 3vh;
     font-family: ARCADECLASSIC;
     cursor: pointer;
