@@ -15,6 +15,7 @@ html{
     height: 90%;
     background-color : var(--storeBackground);
     overflow: hidden;
+    display: none;
 }
 
 #storeSubMenu{
@@ -274,4 +275,32 @@ html{
 .bayTankButton:active{
     border-style: none;
     transform: scale(0.90);
+}
+
+.tankItem , .armsItem , .mapItem{
+    display: none;
+}
+
+
+/* back to menu button */
+
+.backToMenuButton{
+    position: absolute;
+    font-size: 3vh;
+    font-family: ARCADECLASSIC;
+    border-style: none;
+    color : white;
+    background-color : var(--storeSubMenuBackground);
+    border-bottom: 0.5vh solid rgb(49, 30, 119);
+    height : 4vh;
+    padding: 0vh 1vh 0vh 1vh;
+    cursor: pointer;
+    transition: 0.2s;
+    text-align: center;
+    bottom: 2vh;
+}
+
+.backToMenuButton:active{
+    border-bottom: 0.5vh solid var(--storeSubMenuBackground);
+    transform: scale(0.9);
 }

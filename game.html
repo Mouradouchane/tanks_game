@@ -200,16 +200,18 @@
                         <p class="tankText">RELOAD</p>
                         <div class="tankProgress tankReloadProgress"> <div class="perecent"></div></div>
                         
-                        <p class="tankText">RELOAD</p>
+                        <p class="tankText">ARMOR</p>
                         <div class="tankProgress tankReloadProgress"> <div class="perecent"></div></div>
                     </div>
 
                     <button class="bayTankButton" alt="buy it">4200$</button>
                 </div>
             </div>
-            
         </div>
-
+        
+        <!-- back to menu button -->
+        <button class="backToMenuButton"> BACK </button>
+        
         <div id="storeSubMenu">
             <!-- divs as buttons with images -->
             <div class="items" id="giftsButton"></div>
@@ -222,9 +224,11 @@
 
 
     <button id="quitRoundButton">QUIT</button>
+    
+    <div id="canvasBackground">
+        <canvas id="gameCanvas"> </canvas>
+    </div>
         
-    <canvas id="gameCanvas"> </canvas>
- 
     <script src="../canvas.js"         type="module"></script>
     <script src="../game.js"           type="module"></script>
     <script src="../objects/tank.js"   type="module"></script>

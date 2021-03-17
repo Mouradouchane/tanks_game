@@ -1,5 +1,5 @@
 // game moduel for dealing with all game things & stuff as "sitting" :) 
-import {ctx} from "./canvas.js";
+import {canvas,ctx} from "./canvas.js";
 
 // for making game-object 
 export class GAME{
@@ -31,6 +31,33 @@ export class GAME{
             this.frame = 0;
         };
         
+        // this resloutions for calcing min & max of any maps in game 
+        this.standarResloutions = {
+            min : 8,
+            maxWidth : 32,
+            maxHeight : 19
+        };
+
+        this.avgSize = null;
+
+        this.calcAverageSizeOfBlocks = function(levelHeight = 0){
+            // calc average size of each block 
+            let avgValue = Math.floor( window.innerHeight / levelHeight );
+
+            // save value in game object
+            this.avgSize = avgValue;
+            return avgValue;
+        };
+
+        this.calcEmptySpace_Height = function(levelHeight){
+            // calc empty space and set value in top directlly 
+            canvas.style.top = (window.innerHeight % levelHeight) / 2;
+        };
+
+        this.calcEmptySpace_Width = function(levelWidth){
+            // calc empty space and set value in top directlly 
+            canvas.style.left = (window.innerWidth % levelWidth) / 2;
+        };
     }
 }
 
