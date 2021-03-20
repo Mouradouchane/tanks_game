@@ -1,7 +1,10 @@
 // game moduel for dealing with all game things & stuff as "sitting" :) 
 import {canvas,ctx} from "./canvas.js";
+import {MAP} from "./objects/maps.js";
 
-// for making game-object 
+let mp = new MAP(15,20);
+
+// game object just conatins all "info/sitting" at the game
 export class GAME{
     constructor(){
         this.gameStatus = "stoping";
@@ -13,6 +16,14 @@ export class GAME{
 
         this.fps = 0;
         this.frame = 0;
+
+        // shadow deatils 
+        this.shadow = {
+            color : "rgba(0,0,0,0.5)",
+            blur : 0.1,
+            y : 4,
+            x : 0
+        };
 
         this.drawFPS = () =>{
                 ctx.font = "30px tahoma";

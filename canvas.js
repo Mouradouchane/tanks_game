@@ -123,10 +123,10 @@ export function Render(){
     ctx.clearRect(0,0,800,600);
 
     // shadow sitting
-    ctx.shadowColor = "rgba(0,0,0,0.5)";
-    ctx.shadowBlur = 0.1;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 4;
+    ctx.shadowColor   = game.shadow.color ;
+    ctx.shadowBlur    = game.shadow.blur ;
+    ctx.shadowOffsetX = game.shadow.x ;
+    ctx.shadowOffsetY = game.shadow.y ;
 
     // drawing ground as first step after clearing canvas
     drawGround();
