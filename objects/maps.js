@@ -31,43 +31,36 @@ export class MAP{
 
         // calc average height & width of each element in game & save values in elements_Height/Width 
         this.calcElementsHW = function(){
-            this.elements_Height = Math.floor( window.innerHeight / this.height );
-            this.elements_Width  = Math.floor( window.innerWidth  / this.width  );
+            let h = Math.floor( window.innerHeight / this.height );
+            let w =  Math.floor( window.innerWidth / this.width );
+            let avg = (h < w) ? h : w;
+
+            this.elements_Height = avg;
+            this.elements_Width  = avg;
         };
 
         // function work in each resize to updating canvas resoultion
         this.upDateCanvasResoultion = function(){
-            canvas.style.height = (this.height * this.elements_Height) + "px";
-            canvas.style.width  = (this.width  * this.elements_Width) + "px";
+            canvas.style.height = this.height * this.elements_Height + "px";
+            canvas.style.width  = this.width  * this.elements_Width  + "px";
         };
 
+        // if autoFill true 
         if(autoFill){
             // === fill elements by "dg" defualt ground as first step :) ===
-            
-            // fill in height by using empty array in each time 
+        
             for(let h = 0; h < this.height ; h += 1){
                 this.elements.push([]);
                 
                 // fill in width "dg" value in each array
                 for(let w = 0 ; w < this.width ; w += 1){
                     this.elements[h][w] = new mapElment(h*this.elements_Width,w*this.elements_Height,"bg");
+                    this.elements[h][w].addTexture("../Graphics/textures/grassGround.png");
+                    //this.elements[h][w].addTexture("../Graphics/textures/BuildBlock.png");
                 }
             };      
         };
-
-        // in case we need to make some edits in map 
-        /*
-        this.fillMap = (ArrayAsNewMap = []) =>{
-            if(arr.length === 0){ return null }
-            else{
-                for(let h = 0; h < ArrayAsNewMap.height ; h += 1){
-                    if(Array.isArray(ArrayAsNewMap[h])){
-                        this.elements[h] = ArrayAsNewMap[h];
-                    }
-                }
-            }
-        };   
-        */  
+   
         // just defualt ground texture for testing :) 
         this.defGround =  new Image(this.elements_Height,this.elements_Width);
         this.defGround.src = "../Graphics/textures/grassGround.png";
@@ -77,7 +70,7 @@ export class MAP{
             for(let h = 0; h < this.elements.length ; h += 1){
                 for(let w = 0 ; w < this.elements[h].length ; w += 1){
                     ctx.drawImage(
-                        this.defGround , 
+                        this.elements[h][w].texture , 
                         w*this.elements_Width , 
                         h*this.elements_Height , 
                         this.elements_Width ,

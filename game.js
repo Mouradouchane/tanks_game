@@ -39,7 +39,7 @@ export class GAME{
             this.frame = 0;
         };
         
-        // this resloutions for calcing min & max of any maps in game 
+        // this resloutions for check min & max resultion of any maps in game 
         this.standarResloutions = {
             min : 8,
             maxWidth : 32,

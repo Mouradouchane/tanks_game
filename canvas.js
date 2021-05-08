@@ -15,16 +15,17 @@ var [startButton , stopButton] = document.querySelectorAll(".testControlCanvas")
 export const canvas = document.querySelector("#gameCanvas");
 const canvasBackground = document.querySelector("#canvasBackground"); // black background for canvas
 
-// just new map for test
-var defMap = new MAP(20,20);
-// ==== calc canvas resoultion as first step ===
-defMap.calcElementsHW();  // average size of each block in game
-defMap.upDateCanvasResoultion();
-
-game.fixCanvasBlurProblem(); // fixing blur/low graphics problem :)
-
 // get context 2d for canvas usage "ctx"
 export const ctx = canvas.getContext("2d");
+
+// just new map for test
+var defMap = new MAP(12,18);
+
+// ==== calc canvas resoultion as first step ====
+defMap.calcElementsHW(); 
+defMap.upDateCanvasResoultion();
+
+game.fixCanvasBlurProblem(); // fixing blur & low_graphics problem :)
 
 // canvas background color 
 var CanvasColorTerran  = "black";
@@ -33,7 +34,7 @@ ctx.fillStyle = CanvasColorTerran;
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
 // defining player tank    
-const playerTank = new Tank(150 , 200 , game.avgSize ,4 , Defualt_TankImgSource);
+const playerTank = new Tank(100 , 150 , defMap.elements_Height ,4 , Defualt_TankImgSource);
 
 document.addEventListener("keypress" , playerTank.move);
 
