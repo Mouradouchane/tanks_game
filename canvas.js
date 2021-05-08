@@ -7,20 +7,21 @@ import {MAP} from "./objects/maps.js";
 
 // game object just for game sitting & telling us about game cases 
 const game = new GAME();
-// just new map for test
-var defMap = new MAP(20,200);
 
 // start & stop button just for testing how should we "stop//start" rendering in canvas
 var [startButton , stopButton] = document.querySelectorAll(".testControlCanvas");
 
 // target canvas in constant
 export const canvas = document.querySelector("#gameCanvas");
+const canvasBackground = document.querySelector("#canvasBackground"); // black background for canvas
 
-game.calcAverageSizeOfBlocks(defMap.height);
-game.calcCanvasHeight(defMap.height);
-game.calcCanvasWidth(defMap.width);
+// just new map for test
+var defMap = new MAP(20,20);
+// ==== calc canvas resoultion as first step ===
+defMap.calcElementsHW();  // average size of each block in game
+defMap.upDateCanvasResoultion();
 
-game.fixCanvasBlurProblem();
+game.fixCanvasBlurProblem(); // fixing blur/low graphics problem :)
 
 // get context 2d for canvas usage "ctx"
 export const ctx = canvas.getContext("2d");
@@ -61,22 +62,24 @@ let fpsControl = setInterval(() => {
 // == start rendering function ==
 startButton.addEventListener("click" , function(){
     switch(game.gameStatus){
-    
-    case "stoping":
-        // game status important
-        game.gameStatus = "playing";
+        // in case game stoping we switch it to playing & start new game
+        case "stoping":
+            // game status important
+            game.gameStatus = "playing";
 
-        // make canvas visible in start
-        canvas.style.display = "block";
-    
-        // responing in safe zone first 
-        playerTank.responInSafeZone();
-    
-        // start rendering & storing Frame-ID in renderControl for stoping rendering if we want
-        renderControl = requestAnimationFrame(Render);
-    break;
+            // make canvas visible in start
+            canvas.style.display = "block";
+            canvasBackground.style.display = "block";
 
-    case "playing": default : return null; 
+            // responing in safe zone first 
+            playerTank.responInSafeZone();
+        
+            // start rendering & storing Frame-ID in renderControl for stoping rendering if we want
+            renderControl = requestAnimationFrame(Render);
+        break;
+
+        // in case playing & user press we do nothing because it's a "new game button" that illeagl action
+        case "playing": default : return null; 
     }
 });
 
@@ -116,20 +119,14 @@ export function Render(){
     ctx.shadowOffsetY = game.shadow.y ;
 
     // render map elements
-    //defMap.render();
-    for(let h = 0; h < defMap.elements.length ; h += 1){
-        let size = game.avgSize * h;
-
-        for(let w = 0 ; w < defMap.elements[h].length ; w += 1){
-            if(defMap.elements[h][w] == "bg") 
-                ctx.drawImage("../Graphics/textures/grassGround.png" , w * game.avgSize , size , size , size);
-        }
-    }  
-
-    // drawing border around tank as "kind of debuggin" 
-    /*ctx.lineWidth = 1;
-    ctx.strokeStyle = "red";
-    ctx.strokeRect(playerTank.x,playerTank.y, playerTank.width , playerTank.height);*/
+    defMap.render();
+  
+    // ========= drawing border around tank as "kind of debuggin" =================
+        /*
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "red";
+            ctx.strokeRect(playerTank.x,playerTank.y, playerTank.width , playerTank.height);
+        */
     
     // rendering bullets
     for(let i = 0 ; i < playerTank.Bullets.length ; i += 1){
@@ -177,3 +174,10 @@ export function Render(){
 }
 
 //Render();
+
+window.onresize = () => {
+        // average size of each block in game
+    defMap.calcElementsHW();  
+        // after calc avg size the we update canvas resoultion 
+    defMap.upDateCanvasResoultion();
+}

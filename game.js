@@ -23,9 +23,9 @@ export class GAME{
         };
 
         this.drawFPS = () =>{
-                ctx.font = "30px tahoma";
-                ctx.fillStyle = "yellow";
-                ctx.fillText("FPS : " + this.fps , 4 , 40);
+            ctx.font = "30px tahoma";
+            ctx.fillStyle = "yellow";
+            ctx.fillText("FPS : " + this.fps , 4 , 40);
         };
 
         this.drawFRAME = () =>{
@@ -46,36 +46,17 @@ export class GAME{
             maxHeight : 19
         };
 
-        // === dynamic resloution side ===
-        this.avgSize = null;
-
-        this.calcAverageSizeOfBlocks = function(levelHeight = 0){
-            // calc average size of each block 
-            let avgValue = Math.floor( window.innerHeight / levelHeight );
-
-            // save value in game object
-            this.avgSize = avgValue;
-            return avgValue;
-        };
-
-        this.calcCanvasHeight = function(levelHeight = 0){
-            canvas.style.height = (levelHeight * this.avgSize) + "px";
-
-        };
-
-        this.calcCanvasWidth = function(levelWidth = 0){
-            canvas.style.width = (levelWidth * this.avgSize) + "px";
-        };
-        // 
+        // this for fixing blur/low quality problem 
         this.fixCanvasBlurProblem = function(){
             let dpi = window.devicePixelRatio;
-        
+            
             let style_height = +getComputedStyle(canvas).getPropertyValue("height").slice(0, -2);
             let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
-        
+            
             canvas.setAttribute('height', style_height * dpi);
             canvas.setAttribute('width', style_width * dpi);
-        }
+        };
+    
     }
 }
 
