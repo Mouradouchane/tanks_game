@@ -12,14 +12,14 @@ const Defualt_TankImgSource = [new Image() , new Image() , new Image() , new Ima
 export {Defualt_TankImgSource};
 
 export class Tank{
-constructor(x = 150, y = 200 , speed = 4, imgs = []){
+constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
     // inhert bullet form fire.js
     this.speed = speed;
     this.x = x;
     this.y = y;
     // array of tank images
     this.SourceImges = imgs;
-    this.size = 50;
+    this.size = size;
     this.TankCase = this.SourceImges[0];
     this.TankCaseString = "top";
     this.width  = this.size;

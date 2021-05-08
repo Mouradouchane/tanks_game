@@ -1,8 +1,5 @@
 // game moduel for dealing with all game things & stuff as "sitting" :) 
 import {canvas,ctx} from "./canvas.js";
-import {MAP} from "./objects/maps.js";
-
-let mp = new MAP(15,20);
 
 // game object just conatins all "info/sitting" at the game
 export class GAME{
@@ -49,6 +46,7 @@ export class GAME{
             maxHeight : 19
         };
 
+        // === dynamic resloution side ===
         this.avgSize = null;
 
         this.calcAverageSizeOfBlocks = function(levelHeight = 0){
@@ -60,15 +58,24 @@ export class GAME{
             return avgValue;
         };
 
-        this.calcEmptySpace_Height = function(levelHeight){
-            // calc empty space and set value in top directlly 
-            canvas.style.top = (window.innerHeight % levelHeight) / 2;
+        this.calcCanvasHeight = function(levelHeight = 0){
+            canvas.style.height = (levelHeight * this.avgSize) + "px";
+
         };
 
-        this.calcEmptySpace_Width = function(levelWidth){
-            // calc empty space and set value in top directlly 
-            canvas.style.left = (window.innerWidth % levelWidth) / 2;
+        this.calcCanvasWidth = function(levelWidth = 0){
+            canvas.style.width = (levelWidth * this.avgSize) + "px";
         };
+        // 
+        this.fixCanvasBlurProblem = function(){
+            let dpi = window.devicePixelRatio;
+        
+            let style_height = +getComputedStyle(canvas).getPropertyValue("height").slice(0, -2);
+            let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
+        
+            canvas.setAttribute('height', style_height * dpi);
+            canvas.setAttribute('width', style_width * dpi);
+        }
     }
 }
 

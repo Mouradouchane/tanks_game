@@ -12,16 +12,18 @@ body{
 
 /* games canvas */
 #gameCanvas{
-    position: relative;
-    width: 800px;
-    height: 600px;
+    position: absolute;
     border: 1px solid yellow;
-    left: calc((100% - 800px) / 2);
-    top: calc((100% - 600px) / 2);
     display:none;
     /*
-        transform: translate(-50% , -50%);
+        width: 800px;
+        height: 600px;
+        left: calc((100% - 800px) / 2);
+        top: calc((100% - 600px) / 2);
     */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
 }
 
 /* black background for canvas */
@@ -38,6 +40,6 @@ body{
 
 .testControlCanvas{
     position : relative;
-    margin-left : 8px;
+    /* margin-left : 8px; */
 }
 
