@@ -1,4 +1,5 @@
 import {canvas, ctx} from "../canvas.js";
+//import {GAME} from "../game.js";
 
 // class for map elements
 class mapElment{
@@ -30,19 +31,19 @@ export class MAP{
         this.elements_Width = null;
 
         // calc average height & width of each element in game & save values in elements_Height/Width 
-        this.calcElementsHW = function(){
-            let h = Math.floor( window.innerHeight / this.height );
-            let w =  Math.floor( window.innerWidth / this.width );
-            let avg = (h < w) ? h : w;
+        this.calcMapElementsResoultion = function(){
+            //debugger;
+            let minl = (this.width < this.height) ? this.width : this.height;
+            let minw = (window.innerWidth < window.innerHeight) ? window.innerWidth : window.innerHeight;
+            
+            this.elements_Height = Math.floor( minw / minl );
+            this.elements_Width  = Math.floor( minw / minl );
+            
+            console.log(this.elements_Height)
+            
+            canvas.style.height = this.elements_Height * this.height + "px";
+            canvas.style.width  = this.elements_Width  * this.width  + "px";
 
-            this.elements_Height = avg;
-            this.elements_Width  = avg;
-        };
-
-        // function work in each resize to updating canvas resoultion
-        this.upDateCanvasResoultion = function(){
-            canvas.style.height = this.height * this.elements_Height + "px";
-            canvas.style.width  = this.width  * this.elements_Width  + "px";
         };
 
         // if autoFill true 
@@ -51,13 +52,14 @@ export class MAP{
         
             for(let h = 0; h < this.height ; h += 1){
                 this.elements.push([]);
-                
+
                 // fill in width "dg" value in each array
                 for(let w = 0 ; w < this.width ; w += 1){
                     this.elements[h][w] = new mapElment(h*this.elements_Width,w*this.elements_Height,"bg");
                     this.elements[h][w].addTexture("../Graphics/textures/grassGround.png");
                     //this.elements[h][w].addTexture("../Graphics/textures/BuildBlock.png");
                 }
+
             };      
         };
    
@@ -67,15 +69,27 @@ export class MAP{
 
         // this function for "rendering/drawing" each "map element" in => canvas
         this.render = () =>{
+            ctx.font = "12px tahoma";
+            ctx.fillStyle= "red";
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "red";
+
             for(let h = 0; h < this.elements.length ; h += 1){
                 for(let w = 0 ; w < this.elements[h].length ; w += 1){
+                if(h%2 != 0)
                     ctx.drawImage(
                         this.elements[h][w].texture , 
                         w*this.elements_Width , 
                         h*this.elements_Height , 
                         this.elements_Width ,
                         this.elements_Height
-                        );
+                    );
+                    ctx.strokeRect( 
+                        w*this.elements_Width , 
+                        h*this.elements_Height , 
+                        this.elements_Width ,
+                        this.elements_Height
+                    );
                     //if(this.elements[h][w] == "bg")
                 }
             }  

@@ -19,11 +19,10 @@ const canvasBackground = document.querySelector("#canvasBackground"); // black b
 export const ctx = canvas.getContext("2d");
 
 // just new map for test
-var defMap = new MAP(12,18);
+var defMap = new MAP(8,12);
 
 // ==== calc canvas resoultion as first step ====
-defMap.calcElementsHW(); 
-defMap.upDateCanvasResoultion();
+//game.setCanvasResoultion();
 
 game.fixCanvasBlurProblem(); // fixing blur & low_graphics problem :)
 
@@ -74,7 +73,11 @@ startButton.addEventListener("click" , function(){
 
             // responing in safe zone first 
             playerTank.responInSafeZone();
-        
+            
+            // calc size of elements in map before start rendering 
+            defMap.calcMapElementsResoultion();
+            game.fixCanvasBlurProblem();
+
             // start rendering & storing Frame-ID in renderControl for stoping rendering if we want
             renderControl = requestAnimationFrame(Render);
         break;
@@ -176,9 +179,12 @@ export function Render(){
 
 //Render();
 
+
 window.onresize = () => {
-        // average size of each block in game
-    defMap.calcElementsHW();  
-        // after calc avg size the we update canvas resoultion 
-    defMap.upDateCanvasResoultion();
+    
+    // average size of each block in game
+    // after calc average size , then update canvas resoultion 
+
+    defMap.calcMapElementsResoultion(); 
+    game.fixCanvasBlurProblem()
 }

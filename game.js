@@ -39,12 +39,17 @@ export class GAME{
             this.frame = 0;
         };
         
-        // this resloutions for check min & max resultion of any maps in game 
-        this.standarResloutions = {
-            min : 8,
-            maxWidth : 32,
-            maxHeight : 19
+        // game resoultion :) 
+        this.resoultion = {
+            width  : 800,
+            height : 800
         };
+
+        this.setCanvasResoultion = function(){
+            canvas.style.width  = this.resoultion.width  + "px";
+            canvas.style.height = this.resoultion.height + "px";
+        };
+
 
         // this for fixing blur/low quality problem 
         this.fixCanvasBlurProblem = function(){
