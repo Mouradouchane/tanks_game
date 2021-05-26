@@ -30,21 +30,7 @@ export class MAP{
         this.elements_Height = null;
         this.elements_Width = null;
 
-        // calc average height & width of each element in game & save values in elements_Height/Width 
-        this.calcMapElementsResoultion = function(){
-            //debugger;
-            let minl = (this.width < this.height) ? this.width : this.height;
-            let minw = (window.innerWidth < window.innerHeight) ? window.innerWidth : window.innerHeight;
-            
-            this.elements_Height = Math.floor( minw / minl );
-            this.elements_Width  = Math.floor( minw / minl );
-            
-            console.log(this.elements_Height)
-            
-            canvas.style.height = this.elements_Height * this.height + "px";
-            canvas.style.width  = this.elements_Width  * this.width  + "px";
-
-        };
+   
 
         // if autoFill true 
         if(autoFill){

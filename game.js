@@ -38,18 +38,23 @@ export class GAME{
             this.fps = this.frame;
             this.frame = 0;
         };
-        
-        // game resoultion :) 
-        this.resoultion = {
-            width  : 800,
-            height : 800
-        };
+   
+        // this function responsible for calcing perfect width & hegiht for all elements map
+        this.calcGameResoultion = function(mapW = -1, mapH = -1){
+            if( mapW == -1 || mapH == -1) throw new Error("invalid resoultion");
+            //debugger
+            let biggerSide = (mapW > mapH) ? mapW : mapH;
+            let smallScreenSide = (window.innerHeight < window.innerWidth) ? window.innerHeight : window.innerWidth;
 
-        this.setCanvasResoultion = function(){
-            canvas.style.width  = this.resoultion.width  + "px";
-            canvas.style.height = this.resoultion.height + "px";
-        };
+            let avgSize = Math.floor(smallScreenSide / biggerSide);
 
+            canvas.style.width  = (avgSize * mapW) + "px";
+            canvas.style.height = (avgSize * mapH) + "px";
+
+            console.log(avgSize  * mapH);
+
+            return avgSize;
+        }
 
         // this for fixing blur/low quality problem 
         this.fixCanvasBlurProblem = function(){
