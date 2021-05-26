@@ -21,11 +21,6 @@ export const ctx = canvas.getContext("2d");
 // just new map for test
 var defMap = new MAP(8,12);
 
-
-// ==== calc canvas resoultion as first step ====
-game.calcGameResoultion(defMap.width , defMap.height); 
-game.fixCanvasBlurProblem(); // fixing blur & low_graphics problem :)
-
 // canvas background color 
 var CanvasColorTerran  = "black";
 
@@ -64,19 +59,27 @@ startButton.addEventListener("click" , function(){
     switch(game.gameStatus){
         // in case game stoping we switch it to playing & start new game
         case "stoping":
-            // game status important
-            game.gameStatus = "playing";
+            // ==== calc canvas resoultion as first step ====
+            // calcGameResoultion return average size for each element in map for correct rendering 
+let averageSizeForEachBlock = game.calcGameResoultion(defMap.width , defMap.height); 
+            // ==== then fixing blur & low_graphics problem :) ====
+            game.fixCanvasBlurProblem(); 
+
+            defMap.elements_Height = averageSizeForEachBlock; // updating element size too
+            defMap.elements_Width  = averageSizeForEachBlock; // updating element size too
+
+            // updating player tank too
+            playerTank.setNewResoultion(averageSizeForEachBlock);
 
             // make canvas visible in start
             canvas.style.display = "block";
             canvasBackground.style.display = "block";
 
-            // responing in safe zone first 
-            playerTank.responInSafeZone();
-            
-            // calc size of elements in map before start rendering 
-            game.calcGameResoultion(defMap.width,defMap.height); 
-            game.fixCanvasBlurProblem();
+            // switch game status important
+            game.gameStatus = "playing";
+
+            // responing player's in safe zone first 
+            playerTank.responInSafeZone(); 
 
             // start rendering & storing Frame-ID in renderControl for stoping rendering if we want
             renderControl = requestAnimationFrame(Render);
@@ -97,7 +100,7 @@ stopButton.addEventListener("click" , function(){
         // make canvas invisible in stop
         canvas.style.display = "none";
 
-        // clearining frame
+        // clearing renderd frame for new frame :) 
         ctx.clearRect(0,0,canvas.width , canvas.height);
 
         // make array of bullets empty [] :)
@@ -125,12 +128,12 @@ export function Render(){
     // render map elements
     defMap.render();
   
-    // ========= drawing border around tank as "kind of debuggin" =================
-        /*
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "red";
-            ctx.strokeRect(playerTank.x,playerTank.y, playerTank.width , playerTank.height);
-        */
+    // ========= debugging tank in render time =================
+    
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "red";
+        ctx.strokeRect(playerTank.x,playerTank.y, playerTank.width , playerTank.height);
+    
     
     // rendering bullets
     for(let i = 0 ; i < playerTank.Bullets.length ; i += 1){
@@ -177,15 +180,19 @@ export function Render(){
     renderControl = requestAnimationFrame(Render);
 }
 
-//Render();
+// Render();
 
 
 window.onresize = () => {
-    
-    // average size of each block in game
-    // after calc average size , then update canvas resoultion 
+    // in case user resize page we must calculating & updating resoultion for clean experince :)
     if(canvas.style.display == "block"){ // in case canvas visible then we updating resoultion 
-        game.calcGameResoultion(defMap.width , defMap.height); 
+        let averageSizeForEachBlock = game.calcGameResoultion(defMap.width , defMap.height);
+
+        defMap.elements_Height = averageSizeForEachBlock; // updating element size too
+        defMap.elements_Width  = averageSizeForEachBlock; // updating element size too
+
+        playerTank.setNewResoultion(averageSizeForEachBlock); // updating player tank too
+
         game.fixCanvasBlurProblem();
     }
 }

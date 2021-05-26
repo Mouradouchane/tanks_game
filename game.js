@@ -51,8 +51,6 @@ export class GAME{
             canvas.style.width  = (avgSize * mapW) + "px";
             canvas.style.height = (avgSize * mapH) + "px";
 
-            console.log(avgSize  * mapH);
-
             return avgSize;
         }
 

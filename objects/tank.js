@@ -48,6 +48,16 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
         ctx.drawImage(this.TankCase ,this.x , this.y , this.width , this.height);
     };
 
+    // for updating resoultion of tank in each update
+    this.setNewResoultion = function(newSize = 0){
+        // only 80% percent of map element 
+        // for making 'active object' in map smaller than 'map element'
+        let only_80_percent_of_size = (newSize * 80) / 100;
+        this.size = only_80_percent_of_size;
+        this.width = only_80_percent_of_size;
+        this.height = only_80_percent_of_size;
+    }
+
     // reposition Tank when collision detection
     this.repositionTank = () =>{
         // let call collision sound effect afeter reposition " HERE " 

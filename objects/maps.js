@@ -30,12 +30,10 @@ export class MAP{
         this.elements_Height = null;
         this.elements_Width = null;
 
-   
-
         // if autoFill true 
         if(autoFill){
+
             // === fill elements by "dg" defualt ground as first step :) ===
-        
             for(let h = 0; h < this.height ; h += 1){
                 this.elements.push([]);
 
@@ -44,9 +42,10 @@ export class MAP{
                     this.elements[h][w] = new mapElment(h*this.elements_Width,w*this.elements_Height,"bg");
                     this.elements[h][w].addTexture("../Graphics/textures/grassGround.png");
                     //this.elements[h][w].addTexture("../Graphics/textures/BuildBlock.png");
-                }
+                };
 
-            };      
+            };   
+
         };
    
         // just defualt ground texture for testing :) 
@@ -55,14 +54,13 @@ export class MAP{
 
         // this function for "rendering/drawing" each "map element" in => canvas
         this.render = () =>{
-            ctx.font = "12px tahoma";
-            ctx.fillStyle= "red";
+            ctx.font = "10px tahoma";
+            ctx.fillStyle= "yellow";
             ctx.lineWidth = 1;
-            ctx.strokeStyle = "red";
+            ctx.strokeStyle = "rgb(0,255,0)";
 
             for(let h = 0; h < this.elements.length ; h += 1){
                 for(let w = 0 ; w < this.elements[h].length ; w += 1){
-                if(h%2 != 0)
                     ctx.drawImage(
                         this.elements[h][w].texture , 
                         w*this.elements_Width , 
@@ -70,13 +68,13 @@ export class MAP{
                         this.elements_Width ,
                         this.elements_Height
                     );
+                    // debugging map elements in render time
                     ctx.strokeRect( 
                         w*this.elements_Width , 
                         h*this.elements_Height , 
                         this.elements_Width ,
                         this.elements_Height
                     );
-                    //if(this.elements[h][w] == "bg")
                 }
             }  
         };
