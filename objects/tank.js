@@ -38,13 +38,19 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
     // safe Distance when we check collision detection 
     this.safeD = 1;
     // value used by ropsitionTank function  
-    this.respositionValue = 2;
+    this.respositionValue = 10;
 
     this.collisionDetection = false;
     this.collisionDetectionDir = null;
     this.targetObject = {};
 
-    this.render = () => {
+    this.render = () => {   
+        // ========= debugging tank in render time =================
+        /*
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "red";
+            ctx.strokeRect(this.x,this.y, this.width , this.height);
+        */
         ctx.drawImage(this.TankCase ,this.x , this.y , this.width , this.height);
     };
 
@@ -60,6 +66,7 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
 
     // reposition Tank when collision detection
     this.repositionTank = () =>{
+        console.log("collision in " + this.collisionDetectionDir)
         // let call collision sound effect afeter reposition " HERE " 
         this.collisionSound.play();
 
@@ -73,10 +80,11 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
     };
 
     this.move = (e = Event) => {
+        
         if(this.collisionDetection){
             // if tank glitch in block this for press r to teleport
             if(e.key == "r") this.y = 80 , this.x = 210 , this.collisionDetection = false;
-
+            
             this.repositionTank();
         }
         else {
@@ -84,44 +92,53 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
             switch (e.key){
                 case "r" :  this.y = 80 , this.x = 210 ;break;
                 case "z" : {
-                    this.TankCase = this.SourceImges[0];
-                    this.TankCaseString = "top";
-                    
-                    this.y -= this.speed;
-                    
-                    this.LastBullet.y = this.y;     
+                    setTimeout(() => {
+                        this.TankCase = this.SourceImges[0];
+                        this.TankCaseString = "top";
+                        
+                        this.y -= this.speed;
+                        
+                        this.LastBullet.y = this.y;     
+                    },200)
                 } break;
                 
                 case "s" : {
-                    this.TankCase = this.SourceImges[1];
-                    this.TankCaseString = "down";
-                    
-                    this.y += this.speed;
-
-                    this.LastBullet.y = this.y;
+                    setTimeout(() => {
+                        this.TankCase = this.SourceImges[1];
+                        this.TankCaseString = "down";
+                        
+                        this.y += this.speed;
+                        
+                        this.LastBullet.y = this.y;
+                    },200)
                 } break;
                 
                 case "q" : {
-                    this.TankCase = this.SourceImges[2];
-                    this.TankCaseString = "left";
-                    
-                    this.x -= this.speed;
+                    setTimeout(() => {
+                        this.TankCase = this.SourceImges[2];
+                        this.TankCaseString = "left";
+                        
+                        this.x -= this.speed;
 
-                    this.LastBullet.x = this.x;
+                        this.LastBullet.x = this.x;
+                    },200)
                 } break;
                 case "d" : {
-                    this.TankCase = this.SourceImges[3];
-                    this.TankCaseString = "right";
-                    
-                    this.x += this.speed;
-
-                    this.LastBullet.x = this.x;
+                    setTimeout(() => {
+                        this.TankCase = this.SourceImges[3];
+                        this.TankCaseString = "right";
+                        
+                        this.x += this.speed;
+                        
+                        this.LastBullet.x = this.x;
+                    },200)
                 } break;
-
+                
             }
         }
     };
-    // this function for prevent player in terrain borders
+
+    // this function for prevent player go out canvas borders
     this.TerrainBordersCollision = () =>{
         if(this.x + 2 <= 0){
             this.collisionDetectionDir = "right";
@@ -140,29 +157,30 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
             this.repositionTank();
         }
     };
+
     // this function for general collision 
     // required object for collision-detected  
-    this.collision = (cobj = {}) => {
-        this.TerrainBordersCollision();
+    this.collision = (cobj = {}) => { // cobj ==> mapElement
+       // this.TerrainBordersCollision();
         if( this.x + this.size + this.safeD > cobj.x && this.x - this.safeD < cobj.x + cobj.size &&
             this.y + this.size + this.safeD > cobj.y && this.y - this.safeD < cobj.y + cobj.size ){
-            //debugger;
+                //debugger;
             this.collisionDetection = true;
             this.targetObject = cobj;
 
             /* checking where collision */
-            // debugger;
+                // debugger;
             if( (this.y > cobj.y || this.y + this.size > cobj.y) && this.y < cobj.x + cobj.size){
                 //if(this.x + this.size + this.safeD > cobj.x && this.x < cobj.x + cobj.size){ 
                 if(this.x < cobj.x && this.x + this.size  + this.safeD< (cobj.x + (cobj.size / 2)) ){
                     this.collisionDetectionDir = "left";
-                    //console.log("left"); 
+                    console.log("left"); 
                     return this.collisionDetection;
                 }
                 //if(this.x - this.safeD <= cobj.x + cobj.size ){
                 if(this.x + this.safeD > (cobj.x + (cobj.size/2))){
                     this.collisionDetectionDir = "right";
-                    //console.log("right"); 
+                    console.log("right"); 
                     return this.collisionDetection;
                 } 
             }
@@ -170,13 +188,13 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
                 //if( (this.y + this.size + this.safeD) > cobj.y && this.y + this.size + this.safeD < (cobj.y + (cobj.size/2))){
                 if(this.y < cobj.y && (this.y < cobj.y + cobj.size)){
                     this.collisionDetectionDir = "top";
-                    //console.log("top");
+                    console.log("top");
                     return this.collisionDetection;
                 }                     // + 1 for fix 
                 //if( this.y - (this.safeD + 1) < cobj.y + cobj.size + this.safeD){
                 if(this.y + this.size + this.safeD > cobj.y + (cobj.size)){ 
                     this.collisionDetectionDir = "down";
-                    //console.log("down");
+                    console.log("down");
                     return this.collisionDetection;
                 }  
         }

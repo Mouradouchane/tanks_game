@@ -1,11 +1,11 @@
 import {GAME} from "./game.js";
 import {Tank , Defualt_TankImgSource} from "../objects/tank.js";
-import {grassGround} from "./objects/textuerGround.js";
-import {BuildBlock} from "./objects/blocks.js";
+//import {grassGround} from "./objects/textuerGround.js";
+//import {BuildBlock} from "./objects/blocks.js";
 import {Bullet , BulletHitWallEffect} from "./objects/bullets.js";
 import {MAP} from "./objects/maps.js";
 
-// game object just for game sitting & telling us about game cases 
+// game object just for game deatils & telling us about game cases 
 const game = new GAME();
 
 // start & stop button just for testing how should we "stop//start" rendering in canvas
@@ -19,7 +19,7 @@ const canvasBackground = document.querySelector("#canvasBackground"); // black b
 export const ctx = canvas.getContext("2d");
 
 // just new map for test
-var defMap = new MAP(8,12);
+var defMap = new MAP(12,12);
 
 // canvas background color 
 var CanvasColorTerran  = "black";
@@ -127,14 +127,7 @@ export function Render(){
 
     // render map elements
     defMap.render();
-  
-    // ========= debugging tank in render time =================
-    
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "red";
-        ctx.strokeRect(playerTank.x,playerTank.y, playerTank.width , playerTank.height);
-    
-    
+
     // rendering bullets
     for(let i = 0 ; i < playerTank.Bullets.length ; i += 1){
         if(playerTank.Bullets[i] != null){
@@ -154,13 +147,14 @@ export function Render(){
         }
     }
 
-    /* rendering blocks
-    for(let block of ArrayOfBlocks){      
-        block.render();
-        // collision player tank bettwen each block
-        playerTank.collision(block);
+    for(let i = 0 ; i < defMap.solidElement.length ; i += 1){
+        //console.log(mapElement)
+        if(playerTank.collision(defMap[i])){
+            playerTank.rerepositionTank()
+        }
     }
-    */
+
+    playerTank.TerrainBordersCollision();
 
     // Rendering Player Tank
     playerTank.render();
