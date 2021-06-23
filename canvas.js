@@ -28,9 +28,15 @@ ctx.fillStyle = CanvasColorTerran;
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
 // defining player tank    
-const playerTank = new Tank(100 , 150 , defMap.elements_Height ,4 , Defualt_TankImgSource);
+const playerTank = new Tank(158 , 158 , defMap.elements_Height ,4 , Defualt_TankImgSource);
 
-document.addEventListener("keypress" , playerTank.move);
+      playerTank.mapelements = defMap.solidElement;
+// to important events in movement 
+// when user press movement key down or up we do something 
+document.addEventListener("keydown" , playerTank.move);
+document.addEventListener("keyup",(e = Event) => {
+    playerTank.updateKeys(e.key , true);
+});
 
 // auto reload for next shot every '?/ms' depend tankShotingDelay proprty in 'tank class'
 let shotTime = setInterval( _ =>{
@@ -67,6 +73,7 @@ let averageSizeForEachBlock = game.calcGameResoultion(defMap.width , defMap.heig
 
             defMap.elements_Height = averageSizeForEachBlock; // updating element size too
             defMap.elements_Width  = averageSizeForEachBlock; // updating element size too
+            defMap.autoFillMap();
 
             // updating player tank too
             playerTank.setNewResoultion(averageSizeForEachBlock);
@@ -147,15 +154,6 @@ export function Render(){
         }
     }
 
-    for(let i = 0 ; i < defMap.solidElement.length ; i += 1){
-        //console.log(mapElement)
-        if(playerTank.collision(defMap[i])){
-            playerTank.rerepositionTank()
-        }
-    }
-
-    playerTank.TerrainBordersCollision();
-
     // Rendering Player Tank
     playerTank.render();
     // bad engine sound
@@ -178,6 +176,7 @@ export function Render(){
 
 
 window.onresize = () => {
+    console.log( defMap.solidElement);
     // in case user resize page we must calculating & updating resoultion for clean experince :)
     if(canvas.style.display == "block"){ // in case canvas visible then we updating resoultion 
         let averageSizeForEachBlock = game.calcGameResoultion(defMap.width , defMap.height);

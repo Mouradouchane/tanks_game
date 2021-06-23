@@ -35,33 +35,33 @@ export class MAP{
         this.elements_Height = null;
         this.elements_Width = null;
 
-        // if autoFill true 
-        if(autoFill){
-            let tempElement  = null;
-            // === fill elements by "dg" defualt ground as first step :) ===
-            for(let h = 0; h < this.height ; h += 1){
-                this.elements.push([]); // push new row 'MAP 2D ARRAY OF ROW'S'
-                // fill in width "dg" value in each array
-                for(let w = 0 ; w < this.width ; w += 1){
-                    if(w%2 == 0 && h%2 == 0){
-                        tempElement = new mapElment(h*this.elements_Width,w*this.elements_Height,"bg");
-                        tempElement.isSolid = true;
-                        tempElement.size = this.elements_Height;
-                        this.elements[h][w] = tempElement;
-                        this.elements[h][w].addTexture("../Graphics/textures/BuildBlock.png");
-                        this.solidElement.push(tempElement);
+        this.autoFillMap = () => {
+            // if autoFill true 
+            if(autoFill){
+                let tempElement  = null;
+                // === fill elements by "dg" defualt ground as first step :) ===
+                //debugger;
+                for(let h = 0; h < this.height ; h += 1){
+                    this.elements.push([]); // push new row 'MAP 2D ARRAY OF ROW'S'
+                    // fill in width "dg" value in each array
+                    for(let w = 0 ; w < this.width ; w += 1){
+                        if(w%2 == 0 && h%2 == 0){
+                            tempElement = new mapElment((h+1)*this.elements_Width,(w+1)*this.elements_Height,"bg");
+                            tempElement.isSolid = true;
+                            tempElement.size = this.elements_Height;
+                            this.elements[h][w] = tempElement;
+                            this.elements[h][w].addTexture("../Graphics/textures/BuildBlock.png");
+                            this.solidElement.push(tempElement);
+                        }
+                        else{
+                            this.elements[h][w] = new mapElment(h*this.elements_Width,w*this.elements_Height,"bg");
+                            this.elements[h][w].addTexture("../Graphics/textures/grassGround.png");
+                            //this.elements[h][w].addTexture("../Graphics/textures/BuildBlock.png");
+                        }
                     }
-                    else{
-                        this.elements[h][w] = new mapElment(h*this.elements_Width,w*this.elements_Height,"bg");
-                        this.elements[h][w].addTexture("../Graphics/textures/grassGround.png");
-                        //this.elements[h][w].addTexture("../Graphics/textures/BuildBlock.png");
-                    }
-                }; 
-
-            };   
-
+                }
+            }         
         };
-   
         // just defualt ground texture for testing :) 
         this.defGround =  new Image(this.elements_Height,this.elements_Width);
         this.defGround.src = "../Graphics/textures/grassGround.png";

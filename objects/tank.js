@@ -17,6 +17,9 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
     this.speed = speed;
     this.x = x;
     this.y = y;
+    // lasy X Y for collision detection staff 
+    this.lastX = x;
+    this.lastY = y;
     // array of tank images
     this.SourceImges = imgs;
     this.size = size;
@@ -35,17 +38,69 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
     this.LastBullet = new Bullet(this.x + this.width/2, this.y + this.height/2, this.TankCaseString);
     this.collisionSound = new Audio("../audio/tank/collisionSound.mp3");
 
-    // safe Distance when we check collision detection 
+    // array take all solid objects in map => for collision detection   
+    this.mapelements = [];
+    // reposition to safe distance when collision detection 
     this.safeD = 1;
     // value used by ropsitionTank function  
-    this.respositionValue = 10;
+    this.respositionValue = 4;
 
     this.collisionDetection = false;
     this.collisionDetectionDir = null;
     this.targetObject = {};
+    
+    // reserverd movement keys 
+    // keys object for "fixing multiple movement in same time 'BUG'"
+    this.keys = {
+        z : { name : 'z' , isPressed : false} , 
+        s : { name : 's' , isPressed : false} ,
+        d : { name : 'd' , isPressed : false} ,
+        q : { name : 'q' , isPressed : false}  
+    };
+
+    // for updating values of all keys in keys object
+    // important for "fixing multiple movement in same time 'BUG'"
+    this.updateKeys = (pressed_key , isKeyUp = false) =>{
+        //debugger
+        let isTargetKey = false;
+        
+        // in case 'pressed key' is equal to one of 'key in keys' 
+        // that mean pressed key is movement key
+        // we need that in last 'if statement'
+        if(pressed_key == "z") isTargetKey = true;
+        if(pressed_key == "s") isTargetKey = true;
+        if(pressed_key == "d") isTargetKey = true;
+        if(pressed_key == "q") isTargetKey = true;
+
+        // in case pressed key is valid key
+        if(isTargetKey){
+            // in KeyUp event we switch "pressed key" to false in keys object
+            if(isKeyUp) this.keys[pressed_key].isPressed = false;
+            // else that mean we are in KeyDown event sooo we switch "pressed key" to true in keys object
+            else this.keys[pressed_key].isPressed = true;
+        }
+    }
+
+    // function who use "updateKeys function" & check if multiple keys pressed in same time or not 
+    // solution for "multiple movement in same time 'BUG'"
+    this.isAnotherKeyStillPressed = (pressed_key) => {
+        //debugger
+        // update keys first
+        this.updateKeys(pressed_key , false);
+
+        // check if anyone is pressed and not equal to current pressed key
+        // if that happen that mean multiple movement key pressed in same time soo return must be true
+        if( this.keys.z.isPressed && this.keys.z.name != pressed_key ) return true;
+        if( this.keys.s.isPressed && this.keys.s.name != pressed_key ) return true;
+        if( this.keys.d.isPressed && this.keys.d.name != pressed_key ) return true;
+        if( this.keys.q.isPressed && this.keys.q.name != pressed_key ) return true;
+
+        // if not return false that mean there's no key still pressed :) 
+        return false;
+    }
 
     this.render = () => {   
-        // ========= debugging tank in render time =================
+        // debugging area of tank in render time !! 
         /*
             ctx.lineWidth = 1;
             ctx.strokeStyle = "red";
@@ -66,9 +121,8 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
 
     // reposition Tank when collision detection
     this.repositionTank = () =>{
-        console.log("collision in " + this.collisionDetectionDir)
         // let call collision sound effect afeter reposition " HERE " 
-        this.collisionSound.play();
+        //this.collisionSound.play();
 
         switch(this.collisionDetectionDir){
             case "top"  : this.y -= this.respositionValue , this.collisionDetection = false; break;
@@ -80,60 +134,43 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
     };
 
     this.move = (e = Event) => {
-        
-        if(this.collisionDetection){
-            // if tank glitch in block this for press r to teleport
-            if(e.key == "r") this.y = 80 , this.x = 210 , this.collisionDetection = false;
-            
-            this.repositionTank();
-        }
-        else {
-            // glitch movment here
-            switch (e.key){
-                case "r" :  this.y = 80 , this.x = 210 ;break;
-                case "z" : {
-                    setTimeout(() => {
-                        this.TankCase = this.SourceImges[0];
-                        this.TankCaseString = "top";
-                        
-                        this.y -= this.speed;
-                        
-                        this.LastBullet.y = this.y;     
-                    },200)
-                } break;
-                
-                case "s" : {
-                    setTimeout(() => {
-                        this.TankCase = this.SourceImges[1];
-                        this.TankCaseString = "down";
-                        
-                        this.y += this.speed;
-                        
-                        this.LastBullet.y = this.y;
-                    },200)
-                } break;
-                
-                case "q" : {
-                    setTimeout(() => {
-                        this.TankCase = this.SourceImges[2];
-                        this.TankCaseString = "left";
-                        
-                        this.x -= this.speed;
+        // check collision first 
+        debugger
+        this.collision();
+        this.TerrainBordersCollision();
 
-                        this.LastBullet.x = this.x;
-                    },200)
+        if(!this.isAnotherKeyStillPressed(e.key)){
+            switch(e.key){
+                case "r" : { this.y = 158 ; this.x = 158 } break;
+                case "z" : {
+                    this.TankCase = this.SourceImges[0];
+                    this.TankCaseString = "top";
+                    
+                    this.y -= this.speed;
+                    this.LastBullet.y = this.y;     
+
+                } break;
+                case "s" : {
+                    this.TankCase = this.SourceImges[1];
+                    this.TankCaseString = "down";
+                    
+                    this.y += this.speed;
+                    this.LastBullet.y = this.y;
+                } break;
+                case "q" : {
+                    this.TankCase = this.SourceImges[2];
+                    this.TankCaseString = "left";
+                    
+                    this.x -= this.speed;
+                    this.LastBullet.x = this.x;
                 } break;
                 case "d" : {
-                    setTimeout(() => {
-                        this.TankCase = this.SourceImges[3];
-                        this.TankCaseString = "right";
-                        
-                        this.x += this.speed;
-                        
-                        this.LastBullet.x = this.x;
-                    },200)
+                    this.TankCase = this.SourceImges[3];
+                    this.TankCaseString = "right";
+                    
+                    this.x += this.speed;
+                    this.LastBullet.x = this.x;
                 } break;
-                
             }
         }
     };
@@ -158,54 +195,23 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
         }
     };
 
+
     // this function for general collision 
-    // required object for collision-detected  
-    this.collision = (cobj = {}) => { // cobj ==> mapElement
-       // this.TerrainBordersCollision();
-        if( this.x + this.size + this.safeD > cobj.x && this.x - this.safeD < cobj.x + cobj.size &&
-            this.y + this.size + this.safeD > cobj.y && this.y - this.safeD < cobj.y + cobj.size ){
-                //debugger;
-            this.collisionDetection = true;
-            this.targetObject = cobj;
-
-            /* checking where collision */
-                // debugger;
-            if( (this.y > cobj.y || this.y + this.size > cobj.y) && this.y < cobj.x + cobj.size){
-                //if(this.x + this.size + this.safeD > cobj.x && this.x < cobj.x + cobj.size){ 
-                if(this.x < cobj.x && this.x + this.size  + this.safeD< (cobj.x + (cobj.size / 2)) ){
-                    this.collisionDetectionDir = "left";
-                    console.log("left"); 
-                    return this.collisionDetection;
-                }
-                //if(this.x - this.safeD <= cobj.x + cobj.size ){
-                if(this.x + this.safeD > (cobj.x + (cobj.size/2))){
-                    this.collisionDetectionDir = "right";
-                    console.log("right"); 
-                    return this.collisionDetection;
-                } 
+    // require array of object or "map elements"  
+    this.collision = () => {
+        // loop over all solid object in map & check one by one 
+        //debugger
+        for(let i = 0 ; i < this.mapelements.length ; i += 1){
+            if( this.x + this.size >= this.mapelements[i].x && this.x <= this.mapelements[i].x + this.mapelements[i].size &&
+                this.y + this.size >= this.mapelements[i].y && this.y <= this.mapelements[i].y + this.mapelements[i].size 
+            ){
+                this.x = this.lastX;
+                this.y = this.lastY;
+                return;
             }
-            if( (this.x > cobj.x || this.x + this.size > cobj.x) && this.x < cobj.x + cobj.size){
-                //if( (this.y + this.size + this.safeD) > cobj.y && this.y + this.size + this.safeD < (cobj.y + (cobj.size/2))){
-                if(this.y < cobj.y && (this.y < cobj.y + cobj.size)){
-                    this.collisionDetectionDir = "top";
-                    console.log("top");
-                    return this.collisionDetection;
-                }                     // + 1 for fix 
-                //if( this.y - (this.safeD + 1) < cobj.y + cobj.size + this.safeD){
-                if(this.y + this.size + this.safeD > cobj.y + (cobj.size)){ 
-                    this.collisionDetectionDir = "down";
-                    console.log("down");
-                    return this.collisionDetection;
-                }  
         }
-        else {
-            /* this.collisionDetection = false;
-            this.collisionDetectionDir = null;*/
-            this.targetObject = cobj;
-            return this.collisionDetection;
-        }
-    };
-
+        this.lastX = this.x;
+        this.lastY = this.y;
     };
 
     this.shot = () => {
