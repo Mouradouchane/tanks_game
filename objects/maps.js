@@ -35,31 +35,54 @@ export class MAP{
         this.elements_Height = null;
         this.elements_Width = null;
 
+        // developer map for testing  
         this.autoFillMap = () => {
             // if autoFill true 
             if(autoFill){
-                let tempElement  = null;
-                // === fill elements by "dg" defualt ground as first step :) ===
+                //  fill elements by "dg" defualt ground as first step :) ===
                 //debugger;
+
+                // ground for test
                 for(let h = 0; h < this.height ; h += 1){
                     this.elements.push([]); // push new row 'MAP 2D ARRAY OF ROW'S'
                     // fill in width "dg" value in each array
+                    
                     for(let w = 0 ; w < this.width ; w += 1){
-                        if(w%2 == 0 && h%2 == 0){
-                            tempElement = new mapElment((h+1)*this.elements_Width,(w+1)*this.elements_Height,"bg");
-                            tempElement.isSolid = true;
-                            tempElement.size = this.elements_Height;
-                            this.elements[h][w] = tempElement;
-                            this.elements[h][w].addTexture("../Graphics/textures/BuildBlock.png");
-                            this.solidElement.push(tempElement);
-                        }
-                        else{
-                            this.elements[h][w] = new mapElment(h*this.elements_Width,w*this.elements_Height,"bg");
-                            this.elements[h][w].addTexture("../Graphics/textures/grassGround.png");
-                            //this.elements[h][w].addTexture("../Graphics/textures/BuildBlock.png");
-                        }
+                      
+               
+                        this.elements[h][w] = new mapElment(h*this.elements_Width,w*this.elements_Height,"bg");
+                        this.elements[h][w].addTexture("../Graphics/textures/grassGround.png");
+                        //this.elements[h][w].addTexture("../Graphics/textures/BuildBlock.png");
+                     
                     }
+
                 }
+
+                // solid elements for test
+                let tempElement = new mapElment(55,55,"bg");
+                tempElement.isSolid = true;
+                tempElement.size = this.elements_Height;     
+                tempElement.addTexture("../Graphics/textures/BuildBlock.png");
+                this.solidElement.push(tempElement);
+
+                tempElement = new mapElment(250,250,"bg");
+                tempElement.isSolid = true;
+                tempElement.size = this.elements_Height*4;     
+                tempElement.addTexture("../Graphics/textures/BuildBlock.png");
+                this.solidElement.push(tempElement);
+
+                tempElement = new mapElment(500,250,"bg");
+                tempElement.isSolid = true;
+                tempElement.size = this.elements_Height;     
+                tempElement.addTexture("../Graphics/textures/BuildBlock.png");
+                this.solidElement.push(tempElement);
+
+                tempElement = new mapElment(500,300,"bg");
+                tempElement.isSolid = true;
+                tempElement.size = this.elements_Height;     
+                tempElement.addTexture("../Graphics/textures/BuildBlock.png");
+                this.solidElement.push(tempElement);
+                
             }         
         };
         // just defualt ground texture for testing :) 
@@ -73,6 +96,7 @@ export class MAP{
             ctx.lineWidth = 1;
             ctx.strokeStyle = "rgb(0,255,0)";
 
+            // render ground first
             for(let h = 0; h < this.elements.length ; h += 1){
                 for(let w = 0 ; w < this.elements[h].length ; w += 1){
                     ctx.drawImage(
@@ -92,7 +116,18 @@ export class MAP{
                     );
                     */
                 }
-            }  
+            }
+            
+            //then render solid elements
+            for(let i = 0; i < this.solidElement.length ; i += 1){
+                ctx.drawImage(
+                    this.solidElement[i].texture , 
+                    this.solidElement[i].x , 
+                    this.solidElement[i].y , 
+                    this.elements_Width ,
+                    this.elements_Height
+                );
+            }
         };
     }
 }

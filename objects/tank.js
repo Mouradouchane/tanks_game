@@ -125,23 +125,26 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
         //this.collisionSound.play();
 
         switch(this.collisionDetectionDir){
-            case "top"  : this.y -= this.respositionValue , this.collisionDetection = false; break;
-            case "down" : this.y += this.respositionValue , this.collisionDetection = false; break;
-            case "left" : this.x -= this.respositionValue , this.collisionDetection = false; break;
-            case "right": this.x += this.respositionValue , this.collisionDetection = false; break;
+            case "top"  : this.y -= this.respositionValue ,this.lastX = this.x , this.lastY = this.y , this.collisionDetection = false; break;
+            case "down" : this.y += this.respositionValue ,this.lastX = this.x , this.lastY = this.y , this.collisionDetection = false; break;
+            case "left" : this.x -= this.respositionValue ,this.lastX = this.x , this.lastY = this.y , this.collisionDetection = false; break;
+            case "right": this.x += this.respositionValue ,this.lastX = this.x , this.lastY = this.y , this.collisionDetection = false; break;
         };
         this.collisionDetectionDir = null;
     };
 
     this.move = (e = Event) => {
         // check collision first 
-        debugger
+        // debugger
         this.collision();
         this.TerrainBordersCollision();
 
         if(!this.isAnotherKeyStillPressed(e.key)){
             switch(e.key){
-                case "r" : { this.y = 158 ; this.x = 158 } break;
+                case "r" : { 
+                    this.y = 158 ; this.x = 158;
+                    this.lastY = 158 ; this.lastX = 158; 
+                } break;
                 case "z" : {
                     this.TankCase = this.SourceImges[0];
                     this.TankCaseString = "top";
@@ -202,9 +205,10 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
         // loop over all solid object in map & check one by one 
         //debugger
         for(let i = 0 ; i < this.mapelements.length ; i += 1){
-            if( this.x + this.size >= this.mapelements[i].x && this.x <= this.mapelements[i].x + this.mapelements[i].size &&
-                this.y + this.size >= this.mapelements[i].y && this.y <= this.mapelements[i].y + this.mapelements[i].size 
-            ){
+        if( 
+            this.x + this.size >= this.mapelements[i].x && this.x <= this.mapelements[i].x + this.mapelements[i].size &&
+            this.y + this.size >= this.mapelements[i].y && this.y <= this.mapelements[i].y + this.mapelements[i].size 
+        )   {
                 this.x = this.lastX;
                 this.y = this.lastY;
                 return;
@@ -271,7 +275,8 @@ constructor(x = 150, y = 200 , size = 50 ,speed = 4, imgs = []){
 
     // just for making tank respon in safe zone if kind of glitches happen 
     this.responInSafeZone = () =>{
-        this.x = 150 , this.y = 200;
+        this.x = 158 , this.y = 158;
+        this.lastX = this.x , this.lastY = this.y;
         this.collisionDetectionDir = "top";
         this.TankCaseString = "top";
         this.TankCase = this.SourceImges[0];

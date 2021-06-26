@@ -77,7 +77,8 @@ let averageSizeForEachBlock = game.calcGameResoultion(defMap.width , defMap.heig
 
             // updating player tank too
             playerTank.setNewResoultion(averageSizeForEachBlock);
-
+            playerTank.mapelements = defMap.solidElement;
+            console.log( playerTank.mapelements )
             // make canvas visible in start
             canvas.style.display = "block";
             canvasBackground.style.display = "block";
